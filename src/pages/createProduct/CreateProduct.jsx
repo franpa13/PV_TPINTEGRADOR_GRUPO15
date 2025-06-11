@@ -11,7 +11,7 @@ export const CreateProduct = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
-    id: "",
+    id: Date.now(),
     title: "",
     price: "",
     description: "",
@@ -24,9 +24,9 @@ export const CreateProduct = () => {
   });
   const categoriasDisponibles = [
     { value: "men's clothing", label: "Hombre" },
+    { value: "women's clothing", label: "Mujer" },
     { value: "jewelery", label: "Joyas" },
     { value: "electronics", label: "Electronicos" },
-    { value: "women's clothing", label: "Mujer" },
     { value: "other", label: "Otros" },
   ];
 
@@ -73,14 +73,6 @@ export const CreateProduct = () => {
       <Box sx={{ my: 4, pb: 4 }}>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}></Grid>
-          <Input
-            id="product-id"
-            name="id"
-            label="Id del Producto"
-            value={formData.title}
-            onChange={handleChange}
-            required
-          />
           <Input
             id="product-title"
             name="title"

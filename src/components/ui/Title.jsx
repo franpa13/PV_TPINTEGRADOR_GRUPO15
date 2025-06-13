@@ -1,5 +1,5 @@
 export const Title = ({
-  text = "Título",
+  text = "",
   size = "text-2xl",
   className = "",
   children,

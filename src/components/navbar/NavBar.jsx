@@ -34,7 +34,7 @@ export const NavBar = () => {
 
 
     return (
-        <AppBar color='success' position="static">
+        <AppBar color='success' position="sticky">
             <Container maxWidth="2xl">
                 <Toolbar disableGutters>
 

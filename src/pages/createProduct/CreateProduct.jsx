@@ -6,6 +6,7 @@ import { addProduct } from "../../store/productsSlice.js";
 import { Title } from "../../components/ui/Title.jsx";
 import Input from "../../components/ui/Input";
 import CustomButton from "../../components/ui/CustomButton";
+import { categoriasDisponibles } from "../../utils/categories.js";
 import Selector from "../../components/ui/Selector.jsx";
 import FileUploadSharpIcon from "@mui/icons-material/FileUploadSharp";
 export const CreateProduct = () => {
@@ -23,13 +24,7 @@ export const CreateProduct = () => {
       count: "",
     },
   });
-  const categoriasDisponibles = [
-    { value: "men's clothing", label: "Hombre" },
-    { value: "women's clothing", label: "Mujer" },
-    { value: "jewelery", label: "Joyas" },
-    { value: "electronics", label: "Electronicos" },
-    { value: "other", label: "Otros" },
-  ];
+ 
 
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);

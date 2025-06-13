@@ -15,7 +15,7 @@ export const ActionsCard = ({ id, isFavorite }) => {
     }
     return (
         <div className='flex justify-center items-end gap-0'>
-            <Link to={`detail-product/${id}`}>
+            <Link to={`/detail-product/${id}`}>
                 <TooltipComponent text="Ver detalle">
                     <RemoveRedEyeOutlinedIcon className='cursor-pointer' fontSize='medium' color='success'></RemoveRedEyeOutlinedIcon>
 

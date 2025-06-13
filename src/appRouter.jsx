@@ -1,22 +1,22 @@
 import {
     createBrowserRouter,
 } from "react-router-dom";
-import { MainLayout } from "./layouts/MainLayout";
 import App from "./App";
 import { Favorites } from "./pages/favorites/Favorites";
 import { DetailProduct } from "./pages/detailProduct/DetailProduct";
 import { EditProduct } from "./pages/editProduct/EditProduct";
 import { CreateProduct } from "./pages/createProduct/CreateProduct";
+import { HomePage } from "./pages/home/HomePage";
 
 
 export const appRouter = createBrowserRouter([
     {
         path: "/",
-        element: <MainLayout />,
+        element: <App />,
         children: [
             {
                 index: true,
-                element: <App />,
+                element: <HomePage />,
             },
             {
                 path: "favorites",

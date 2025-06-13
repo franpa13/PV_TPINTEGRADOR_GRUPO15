@@ -8,14 +8,7 @@ import Selector from "../../components/ui/Selector.jsx";
 import { SnackbarComponent } from "../../components/ui/snackbar/Snackbar.jsx";
 import { Box, Grid, Button, Container } from "@mui/material";
 import EditNoteSharpIcon from "@mui/icons-material/EditNoteSharp";
-
-const categoriasDisponibles = [
-  { value: "men's clothing", label: "Hombre" },
-  { value: "women's clothing", label: "Mujer" },
-  { value: "jewelery", label: "Joyas" },
-  { value: "electronics", label: "Electrónicos" },
-  { value: "other", label: "Otros" },
-];
+import { categoriasDisponibles } from "../../utils/categories.js";
 
 export const EditProduct = () => {
   const dispatch = useDispatch();

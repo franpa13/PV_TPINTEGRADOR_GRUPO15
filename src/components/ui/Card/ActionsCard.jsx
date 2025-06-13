@@ -3,8 +3,10 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { FaRegEdit } from "react-icons/fa";
 import TooltipComponent from '../Tooltip';
 import { toggleFavorite } from '../../../store/productsSlice';
+import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 export const ActionsCard = ({ id, isFavorite }) => {
 
     const dispatch = useDispatch();
@@ -21,6 +23,7 @@ export const ActionsCard = ({ id, isFavorite }) => {
             </Link>
 
 
+
             {isFavorite ? (
                 <TooltipComponent onClick={toggleFavoriteAction} text="Eliminar de favoritos">
 
@@ -34,6 +37,12 @@ export const ActionsCard = ({ id, isFavorite }) => {
 
             )
             }
+            <Link to={`edit-product/${id}`}>
+                <TooltipComponent text="Ver detalle">
+                    <BorderColorOutlinedIcon className='cursor-pointer'  color='info'></ BorderColorOutlinedIcon>
+
+                </TooltipComponent>
+            </Link>
 
         </div>
     )

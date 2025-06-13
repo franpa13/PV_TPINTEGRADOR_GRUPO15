@@ -6,9 +6,11 @@ import { updateProduct } from "../../store/productsSlice.js";
 import { Title } from "../../components/ui/Title.jsx";
 export const EditProduct = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  const { products } = useSelector((state) => state.products);
+  const products = useSelector((state) => state.products)
   const dispatch = useDispatch();
-  const { productId } = useParams();
+  const { id } = useParams();
+ 
+
   const [productToEdit, setProductToEdit] = useState(null);
   const [formData, setFormData] = useState({
     id: "",
@@ -24,16 +26,17 @@ export const EditProduct = () => {
   });
 
   useEffect(() => {
-    if (productId && products.length > 0) {
+    if (id && products?.length > 0) {
       const foundProduct = products.find(
-        (product) => product.id === parseInt(productId)
+        (product) => product.id === parseInt(id)
       );
+
       if (foundProduct) {
         setProductToEdit(foundProduct);
         setFormData(foundProduct);
       }
     }
-  }, [productId, products]);
+  }, [id, products]);
 
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);

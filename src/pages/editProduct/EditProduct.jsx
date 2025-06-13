@@ -120,7 +120,7 @@ export const EditProduct = () => {
           variant="outlined"
         />
         <Grid item xs={12} sx={{ mb: 4 }}></Grid>
-        <CustomButton onClick={handleSubmit}>Crear Producto</CustomButton>
+        <CustomButton onClick={handleSubmit}>Editar</CustomButton>
       </form>
       <SnackbarComponent
         open={openSnackbar}

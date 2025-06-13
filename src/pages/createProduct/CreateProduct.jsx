@@ -7,6 +7,7 @@ import { Title } from "../../components/ui/Title.jsx";
 import Input from "../../components/ui/Input";
 import CustomButton from "../../components/ui/CustomButton";
 import Selector from "../../components/ui/Selector.jsx";
+import FileUploadSharpIcon from "@mui/icons-material/FileUploadSharp";
 export const CreateProduct = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const dispatch = useDispatch();
@@ -69,7 +70,10 @@ export const CreateProduct = () => {
 
   return (
     <Container maxWidth="sm">
-      <Title>Nuevo Producto</Title>
+      <Title>
+        <FileUploadSharpIcon sx={{ verticalAlign: "middle", mr: 1 }} />
+        Agregar Producto
+      </Title>
       <Box sx={{ my: 4, pb: 4 }}>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}></Grid>

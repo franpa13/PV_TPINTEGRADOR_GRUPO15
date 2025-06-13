@@ -1,142 +1,171 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { SnackbarComponent } from "../../components/ui/snackbar/Snackbar.jsx";
-import { updateProduct } from "../../store/productsSlice.js";
+import { updateProduct } from "../../store/productsSlice";
 import { Title } from "../../components/ui/Title.jsx";
 import Input from "../../components/ui/Input";
-import { Grid } from "@mui/material";
 import Selector from "../../components/ui/Selector.jsx";
-import CustomButton from "../../components/ui/CustomButton.jsx";
+import { SnackbarComponent } from "../../components/ui/snackbar/Snackbar.jsx";
+import { Box, Grid, Button, Container } from "@mui/material";
+import EditNoteSharpIcon from "@mui/icons-material/EditNoteSharp";
+
+const categoriasDisponibles = [
+  { value: "men's clothing", label: "Hombre" },
+  { value: "women's clothing", label: "Mujer" },
+  { value: "jewelery", label: "Joyas" },
+  { value: "electronics", label: "Electrónicos" },
+  { value: "other", label: "Otros" },
+];
 
 export const EditProduct = () => {
-  // const [openSnackbar, setOpenSnackbar] = useState(false);
-  // const products = useSelector((state) => state.products)
-  // const dispatch = useDispatch();
-  // const { id } = useParams();
- 
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const allProducts = useSelector((state) => state.products); // productos es un array directo
+  const [formData, setFormData] = useState(null);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  useEffect(() => {
+    if (id && allProducts.length > 0) {
+      const producto = allProducts.find((p) => p.id === parseInt(id));
+      if (producto) {
+        setFormData({
+          id: producto.id,
+          title: producto.title,
+          price: producto.price,
+          description: producto.description,
+          category: producto.category,
+          image: producto.image,
+          rating: {
+            rate: producto.rating?.rate || 0,
+            count: producto.rating?.count || 0,
+          },
+        });
+      }
+    }
+  }, [id, allProducts]);
 
-  // const [productToEdit, setProductToEdit] = useState(null);
-  // const categoriasDisponibles = [
-  //   { value: "men's clothing", label: "Hombre" },
-  //   { value: "women's clothing", label: "Mujer" },
-  //   { value: "jewelery", label: "Joyas" },
-  //   { value: "electronics", label: "Electronicos" },
-  //   { value: "other", label: "Otros" },
-  // ];
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "rate" || name === "count") {
+      setFormData((prev) => ({
+        ...prev,
+        rating: {
+          ...prev.rating,
+          [name]: parseFloat(value),
+        },
+      }));
+    } else if (name === "price") {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: parseFloat(value),
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+  };
 
-  // useEffect(() => {
-  //   if (id && products?.length > 0) {
-  //     const foundProduct = products.find(
-  //       (product) => product.id === parseInt(id)
-  //     );
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updateProduct(formData));
+    setOpenSnackbar(true);
+  };
 
-  //     if (foundProduct) {
-  //       setProductToEdit(foundProduct);
-  //       setFormData(foundProduct);
-  //     }
-  //   }
-  // }, [id, products]);
-
-  // const handleCloseSnackbar = () => {
-  //   setOpenSnackbar(false);
-  // };
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData({
-  //     ...formData,
-  //     [name]: value,
-  //   });
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   dispatch(updateProduct(formData));
-  //   setOpenSnackbar(true);
-  // };
+  const handleCloseSnackbar = (_, reason) => {
+    if (reason !== "clickaway") setOpenSnackbar(false);
+  };
+  if (!formData) {
+    return <div>Cargando producto...</div>;
+  }
 
   return (
     <>
-      {/* <Title> Edición de Producto: {productToEdit?.title}</Title>{" "}
-      <form onSubmit={handleSubmit}>
-        <Grid container spacing={3}></Grid>
-        <Input
-          id="product-title"
-          name="title"
-          label="Nombre del Producto"
-          value={productToEdit?.title || ""}
-          onChange={handleChange}
-          required
+      <Container maxWidth="sm">
+        <Title>
+          <EditNoteSharpIcon sx={{ verticalAlign: "middle", mr: 1 }} />
+          Editar Producto
+        </Title>
+        <Box sx={{ my: 4, pb: 4 }}>
+          <form onSubmit={handleSubmit}>
+            <Grid container spacing={3}>
+              <Input
+                id="title"
+                name="title"
+                label="Nombre del Producto"
+                value={formData.title}
+                onChange={handleChange}
+                required
+              />
+              <Input
+                id="price"
+                name="price"
+                label="Precio"
+                type="number"
+                value={formData.price}
+                onChange={handleChange}
+                required
+              />
+              <Selector
+                id="category"
+                name="category"
+                label="Categoría"
+                value={formData.category}
+                onChange={handleChange}
+                options={categoriasDisponibles}
+              />
+              <Input
+                id="description"
+                name="description"
+                label="Descripción"
+                multiline
+                rows={4}
+                value={formData.description}
+                onChange={handleChange}
+                required
+              />
+              <Input
+                id="image"
+                name="image"
+                label="URL de la imagen"
+                value={formData.image}
+                onChange={handleChange}
+                required
+              />
+              <Input
+                id="rate"
+                name="rate"
+                label="Puntuación"
+                type="number"
+                step="0.1"
+                value={formData.rating?.rate}
+                onChange={handleChange}
+              />
+              <Input
+                id="count"
+                name="count"
+                label="Cantidad de Reseñas"
+                type="number"
+                value={formData.rating?.count}
+                onChange={handleChange}
+              />
+              <Button type="submit" variant="contained" color="primary">
+                Guardar Cambios
+              </Button>
+            </Grid>
+          </form>
+        </Box>
+        <SnackbarComponent
+          open={openSnackbar}
+          onClose={handleCloseSnackbar}
+          message="Producto actualizado con éxito"
+          severity="success"
+          vertical="bottom"
+          horizontal="center"
         />
-        <Input
-          id="product-price"
-          label="Precio"
-          name="price"
-          type="number"
-          value={productToEdit?.price || ""}
-          onChange={handleChange}
-          required
-        />
-        <Selector
-          id="product-category"
-          label="Categoría"
-          name="category"
-          value={productToEdit?.category || ""}
-          onChange={handleChange}
-          options={categoriasDisponibles}
-        />
-        <Input
-          id="product-description"
-          label="Descripción"
-          name="description"
-          value={productToEdit?.description || ""}
-          onChange={handleChange}
-          required
-          multiline
-          rows={4}
-          variant="outlined"
-        />
-        <Input
-          id="product-image"
-          label="URL de la Imagen"
-          name="image"
-          type="url"
-          value={productToEdit?.image || ""}
-          onChange={handleChange}
-          required
-          variant="outlined"
-        />
-        <Input
-          id="product-rating-rate"
-          label="Puntuación"
-          name="rate"
-          type="number"
-          value={productToEdit?.rating.rate || ""}
-          onChange={handleChange}
-          step="0.1"
-          variant="outlined"
-        />
-        <Input
-          label="Reseñas"
-          name="count"
-          type="number"
-          value={productToEdit?.rating.count}
-          onChange={handleChange}
-          variant="outlined"
-        />
-        <Grid item xs={12} sx={{ mb: 4 }}></Grid>
-        <CustomButton onClick={handleSubmit}>Editar</CustomButton>
-      </form>
-      <SnackbarComponent
-        open={openSnackbar}
-        onClose={handleCloseSnackbar}
-        message={"Producto modificado con éxito"}
-        severity="success"
-        vertical="bottom"
-        horizontal="center"
-      /> */}
-      <h2>edit</h2>
+      </Container>
     </>
   );
 };
+
+export default EditProduct;

@@ -20,7 +20,11 @@ export const SnackbarComponent = ({
         variant="filled"
         onClose={onClose}
         severity={severity}
-        sx={{ width: "100%" }}
+        sx={{
+          width: "100%",
+          backgroundColor: "blue",
+          color: "white",
+        }}
       >
         {message}
       </Alert>

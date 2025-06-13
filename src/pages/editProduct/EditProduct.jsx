@@ -4,24 +4,21 @@ import { useState, useEffect } from "react";
 import { SnackbarComponent } from "../../components/ui/snackbar/Snackbar.jsx";
 import { updateProduct } from "../../store/productsSlice.js";
 import { Title } from "../../components/ui/Title.jsx";
+import Input from "../../components/ui/Input";
+
 export const EditProduct = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const { products } = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const { productId } = useParams();
   const [productToEdit, setProductToEdit] = useState(null);
-  const [formData, setFormData] = useState({
-    id: "",
-    title: "",
-    price: "",
-    description: "",
-    category: "",
-    image: "",
-    rating: {
-      rate: "",
-      count: "",
-    },
-  });
+  const categoriasDisponibles = [
+    { value: "men's clothing", label: "Hombre" },
+    { value: "women's clothing", label: "Mujer" },
+    { value: "jewelery", label: "Joyas" },
+    { value: "electronics", label: "Electronicos" },
+    { value: "other", label: "Otros" },
+  ];
 
   useEffect(() => {
     if (productId && products.length > 0) {
@@ -53,65 +50,77 @@ export const EditProduct = () => {
     setOpenSnackbar(true);
   };
 
-  if (!productToEdit) {
-    return <div>Cargando producto o producto no encontrado...</div>;
-  }
-
   return (
     <>
-      <Title> Edición de Producto: {productToEdit?.name}</Title>{" "}
+      <Title> Edición de Producto: {productToEdit?.title}</Title>{" "}
       <form onSubmit={handleSubmit}>
-        <label>
-          Nombre:
-          <input
-            type="text"
-            name="name"
-            value={formData.title || ""}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Precio:
-          <input
-            type="number"
-            name="price"
-            value={formData.price || ""}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Descripción:
-          <textarea
-            name="description"
-            value={formData.description || ""}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Categoría:
-          <input
-            type="text"
-            name="category"
-            value={formData.category || ""}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Imagen URL:
-          <input
-            type="text"
-            name="image"
-            value={formData.image || ""}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        {/* Puedes añadir más campos del formulario aquí */}
-        <button type="submit">Guardar Cambios</button>
+        <Grid container spacing={3}></Grid>
+        <Input
+          id="product-title"
+          name="title"
+          label="Nombre del Producto"
+          value={productToEdit?.title || ""}
+          onChange={handleChange}
+          required
+        />
+        <Input
+          id="product-price"
+          label="Precio"
+          name="price"
+          type="number"
+          value={productToEdit?.price || ""}
+          onChange={handleChange}
+          required
+        />
+        <Selector
+          id="product-category"
+          label="Categoría"
+          name="category"
+          value={productToEdit?.category || ""}
+          onChange={handleChange}
+          options={categoriasDisponibles}
+        />
+        <Input
+          id="product-description"
+          label="Descripción"
+          name="description"
+          value={productToEdit?.description || ""}
+          onChange={handleChange}
+          required
+          multiline
+          rows={4}
+          variant="outlined"
+        />
+        <Input
+          id="product-image"
+          label="URL de la Imagen"
+          name="image"
+          type="url"
+          value={productToEdit?.image || ""}
+          onChange={handleChange}
+          required
+          variant="outlined"
+        />
+        <Input
+          id="product-rating-rate"
+          label="Puntuación"
+          name="rate"
+          type="number"
+          value={productToEdit?.rating.rate || ""}
+          onChange={handleChange}
+          step="0.1"
+          variant="outlined"
+        />
+        <Input
+          label="Reseñas"
+          name="count"
+          type="number"
+          value={productToEdit?.rating.count}
+          onChange={handleChange}
+          variant="outlined"
+        />
+        <Grid item xs={12} sx={{ mb: 4 }}></Grid>
+        <CustomButton onClick={handleSubmit}>Crear Producto</CustomButton>
       </form>
       <SnackbarComponent
         open={openSnackbar}

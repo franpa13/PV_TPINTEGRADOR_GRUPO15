@@ -4,7 +4,7 @@ import { Footer } from "../components/footer/Footer";
 import { useGetProducts } from "../hooks/useGetProducts";
 import SpinnerComponent from "../components/ui/Spinner";
 import { Error } from "../components/ui/Error";
-export const MainLayout = ({ children }) => {
+export const MainLayout = () => {
     const { error, loading } = useGetProducts();
 
     return (
@@ -22,9 +22,12 @@ export const MainLayout = ({ children }) => {
                 <Error message="Ha ocurrido un error, intentelo nuevamente" ></Error>
             )}
             <section className="flex-1">
-                {children}
-                <Outlet />
+                {!loading && (
+
+                    <Outlet />
+                )}
             </section>
+
 
             <Footer />
         </div>

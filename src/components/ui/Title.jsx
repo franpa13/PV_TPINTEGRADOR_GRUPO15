@@ -1,9 +1,12 @@
-
-
-export const Title = ({ text = "Título", size = "text-2xl", className = "" ,children }) => {
+export const Title = ({
+  text = "",
+  size = "text-2xl",
+  className = "",
+  children,
+}) => {
   return (
     <h1 className={`${size} font-semibold text-gray-800 ${className}`}>
-      {text} 
+      {text}
       {children}
     </h1>
   );

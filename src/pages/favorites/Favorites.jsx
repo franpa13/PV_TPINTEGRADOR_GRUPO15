@@ -9,12 +9,12 @@ export const Favorites = () => {
   const favorites = products.filter((product) => product.favorite);
 
   return (
-    <div className="p-4">
-      <div className="flex justify-center mb-4">
-        <Title className="text-2xl xl:text-3xl text-center text-green-700 mb-8" text="Mis Favoritos">
-          <FavoriteTwoToneIcon className="text-green-600" /> {/*Icono corazon al lado del titulo */}
+    <div className="p-5">
+   
+        <Title   className="flex items-center gap-2 justify-center text-2xl xl:text-3xl text-center text-green-700 mb-8" text="Mis Favoritos">
+          <FavoriteTwoToneIcon fontSize="inherit" className="mt-1"  /> {/*Icono corazon al lado del titulo */}
         </Title>
-      </div>
+  
 
       {favorites.length === 0 ? (
         <Box

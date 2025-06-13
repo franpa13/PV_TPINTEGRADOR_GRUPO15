@@ -56,7 +56,7 @@ export const EditProduct = () => {
     } else if (name === "price") {
       setFormData((prev) => ({
         ...prev,
-        [name]: parseFloat(value),
+        [name]: (value),
       }));
     } else {
       setFormData((prev) => ({
@@ -82,9 +82,9 @@ export const EditProduct = () => {
   return (
     <>
       <Container maxWidth="sm">
-        <Title>
-          <EditNoteSharpIcon sx={{ verticalAlign: "middle", mr: 1 }} />
-          Editar Producto
+        <Title className="text-2xl xl:text-3xl text-center text-green-700 my-5" text="Editar Producto">
+          <EditNoteSharpIcon fontSize="large" />
+
         </Title>
         <Box sx={{ my: 4, pb: 4 }}>
           <form onSubmit={handleSubmit}>

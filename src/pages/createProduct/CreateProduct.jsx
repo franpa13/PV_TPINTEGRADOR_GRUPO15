@@ -70,10 +70,11 @@ export const CreateProduct = () => {
 
   return (
     <Container maxWidth="sm">
-      <Title>
-        <FileUploadSharpIcon sx={{ verticalAlign: "middle", mr: 1 }} />
-        Agregar Producto
+      <Title className="text-2xl xl:text-3xl text-center text-green-700 my-5" text="Agregar Producto">
+        <FileUploadSharpIcon fontSize="large" />
+
       </Title>
+
       <Box sx={{ my: 4, pb: 4 }}>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}></Grid>
@@ -134,7 +135,7 @@ export const CreateProduct = () => {
             variant="outlined"
           />
           <Input
-            label="Reseñas"
+            label="Cantidad de Reseñas"
             name="count"
             type="number"
             value={formData.rating.count}
@@ -142,7 +143,10 @@ export const CreateProduct = () => {
             variant="outlined"
           />
           <Grid item xs={12} sx={{ mb: 4 }}></Grid>
-          <CustomButton onClick={handleSubmit}>Crear Producto</CustomButton>
+          <Button onClick={handleSubmit} type="submit" variant="contained" color="primary">
+            Crear Producto
+          </Button>
+
         </form>
       </Box>
       <SnackbarComponent

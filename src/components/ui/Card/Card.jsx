@@ -74,9 +74,7 @@ export default function CardComponent({ product }) {
 
             </CardContent>
 
-            <Link to={`/edit-product/${product.id}`} >
-                editrar
-            </Link>
+
         </Card>
     );
 }

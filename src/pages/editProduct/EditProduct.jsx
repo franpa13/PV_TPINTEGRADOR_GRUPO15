@@ -5,54 +5,60 @@ import { SnackbarComponent } from "../../components/ui/snackbar/Snackbar.jsx";
 import { updateProduct } from "../../store/productsSlice.js";
 import { Title } from "../../components/ui/Title.jsx";
 import Input from "../../components/ui/Input";
+import { Grid } from "@mui/material";
+import Selector from "../../components/ui/Selector.jsx";
+import CustomButton from "../../components/ui/CustomButton.jsx";
 
 export const EditProduct = () => {
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const { products } = useSelector((state) => state.products);
-  const dispatch = useDispatch();
-  const { productId } = useParams();
-  const [productToEdit, setProductToEdit] = useState(null);
-  const categoriasDisponibles = [
-    { value: "men's clothing", label: "Hombre" },
-    { value: "women's clothing", label: "Mujer" },
-    { value: "jewelery", label: "Joyas" },
-    { value: "electronics", label: "Electronicos" },
-    { value: "other", label: "Otros" },
-  ];
+  // const [openSnackbar, setOpenSnackbar] = useState(false);
+  // const products = useSelector((state) => state.products)
+  // const dispatch = useDispatch();
+  // const { id } = useParams();
+ 
 
-  useEffect(() => {
-    if (productId && products.length > 0) {
-      const foundProduct = products.find(
-        (product) => product.id === parseInt(productId)
-      );
-      if (foundProduct) {
-        setProductToEdit(foundProduct);
-        setFormData(foundProduct);
-      }
-    }
-  }, [productId, products]);
+  // const [productToEdit, setProductToEdit] = useState(null);
+  // const categoriasDisponibles = [
+  //   { value: "men's clothing", label: "Hombre" },
+  //   { value: "women's clothing", label: "Mujer" },
+  //   { value: "jewelery", label: "Joyas" },
+  //   { value: "electronics", label: "Electronicos" },
+  //   { value: "other", label: "Otros" },
+  // ];
 
-  const handleCloseSnackbar = () => {
-    setOpenSnackbar(false);
-  };
+  // useEffect(() => {
+  //   if (id && products?.length > 0) {
+  //     const foundProduct = products.find(
+  //       (product) => product.id === parseInt(id)
+  //     );
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  //     if (foundProduct) {
+  //       setProductToEdit(foundProduct);
+  //       setFormData(foundProduct);
+  //     }
+  //   }
+  // }, [id, products]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(updateProduct(formData));
-    setOpenSnackbar(true);
-  };
+  // const handleCloseSnackbar = () => {
+  //   setOpenSnackbar(false);
+  // };
+
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData({
+  //     ...formData,
+  //     [name]: value,
+  //   });
+  // };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   dispatch(updateProduct(formData));
+  //   setOpenSnackbar(true);
+  // };
 
   return (
     <>
-      <Title> Edición de Producto: {productToEdit?.title}</Title>{" "}
+      {/* <Title> Edición de Producto: {productToEdit?.title}</Title>{" "}
       <form onSubmit={handleSubmit}>
         <Grid container spacing={3}></Grid>
         <Input
@@ -129,7 +135,8 @@ export const EditProduct = () => {
         severity="success"
         vertical="bottom"
         horizontal="center"
-      />
+      /> */}
+      <h2>edit</h2>
     </>
   );
 };

@@ -4,6 +4,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { ActionsCard } from './ActionsCard';
+import { Link } from 'react-router-dom';
 
 
 export default function CardComponent({ product }) {
@@ -68,12 +69,14 @@ export default function CardComponent({ product }) {
                 <div className='flex justify-between items-center mt-2'>
                     <span className='font-semibold text-lg'>${product?.price}
                     </span>
-                    <ActionsCard id = {product.id} isFavorite={product.favorite}></ActionsCard>
+                    <ActionsCard id={product.id} isFavorite={product.favorite}></ActionsCard>
                 </div>
 
             </CardContent>
 
-
+            <Link to={`/edit-product/${product.id}`} >
+                editrar
+            </Link>
         </Card>
     );
 }

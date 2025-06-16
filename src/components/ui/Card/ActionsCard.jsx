@@ -38,7 +38,7 @@ export const ActionsCard = ({ id, isFavorite }) => {
             )
             }
             <Link to={`edit-product/${id}`}>
-                <TooltipComponent text="Ver detalle">
+                <TooltipComponent text="Editar producto">
                     <BorderColorOutlinedIcon className='cursor-pointer'  color='info'></ BorderColorOutlinedIcon>
 
                 </TooltipComponent>

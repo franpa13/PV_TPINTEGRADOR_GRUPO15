@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { updateProduct } from "../../store/productsSlice";
 import { Title } from "../../components/ui/Title.jsx";
@@ -9,6 +9,7 @@ import { SnackbarComponent } from "../../components/ui/snackbar/Snackbar.jsx";
 import { Box, Grid, Button, Container } from "@mui/material";
 import EditNoteSharpIcon from "@mui/icons-material/EditNoteSharp";
 import { categoriasDisponibles } from "../../utils/categories.js";
+import { ArrowBack } from "@mui/icons-material";
 
 export const EditProduct = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ export const EditProduct = () => {
   const allProducts = useSelector((state) => state.products); // productos es un array directo
   const [formData, setFormData] = useState(null);
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
     if (id && allProducts.length > 0) {
       const producto = allProducts.find((p) => p.id === parseInt(id));
@@ -78,8 +80,20 @@ export const EditProduct = () => {
         <Title className="text-2xl xl:text-3xl text-center text-green-700 my-5" text="Editar Producto">
           <EditNoteSharpIcon fontSize="large" />
 
-        </Title>
+        </Title >
+        <div className="flex w-full justify-start">
+          <Button
+            variant="contained"
+            startIcon={<ArrowBack />}
+            onClick={() => navigate(-1)}
+            size='small'
+          >
+            Volver
+          </Button>
+        </div>
+
         <Box sx={{ my: 4, pb: 4 }}>
+
           <form onSubmit={handleSubmit}>
             <Grid container spacing={3}>
               <Input

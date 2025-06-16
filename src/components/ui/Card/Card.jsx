@@ -12,7 +12,7 @@ export default function CardComponent({ product }) {
     return (
         <Card
             sx={{
-                maxWidth: 350,
+                maxWidth: 300,
                 maxHeight: 700,
                 // Responsivo según el tamaño del dispositivo
                 '@media (max-width: 300px)': {
@@ -50,29 +50,15 @@ export default function CardComponent({ product }) {
                 image={product.image || "https://via.placeholder.com/150"}
                 alt="Paella dish"
             />
-            <CardContent>
-                <Typography
-                    variant="body2"
-                    sx={{
-                        color: 'text.secondary',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 4,         // Máximo de líneas visibles
-                        WebkitBoxOrient: 'vertical',
-                        overflow: 'hidden',
-
-                    }}
-                >
-                    {product.description || "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup frozen peas along with the mussels, if you like."}
-                </Typography>
-
-
-                <div className='flex justify-between items-center mt-2'>
+          
+                
+                <div className='flex justify-between items-center m-2'>
                     <span className='font-semibold text-lg'>${product?.price}
                     </span>
                     <ActionsCard id={product.id} isFavorite={product.favorite}></ActionsCard>
                 </div>
 
-            </CardContent>
+           
 
 
         </Card>

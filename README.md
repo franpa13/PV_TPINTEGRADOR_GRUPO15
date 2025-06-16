@@ -1,13 +1,56 @@
-# React + Vite
+# 🧩 Proyecto Integrador - Programación Visual 2025
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🏫 Facultad de Ingeniería - UNJU  
+---
+**Carrera:** Analista Programador Universitario  
+**Materia:** Programación Visual  
+**Tipo de trabajo:** Práctico grupal obligatorio
+**Integrantes:** 
+1.	Paredes , Francisco Javier 
+2.	Sajama , Laura Anahí 
+3.	Dionicio,  Misael Fredy 
+4.	Ugarte, Rodolfo Abraham
 
-Currently, two official plugins are available:
+## 📘 Introducción
+---
+Este repositorio contiene el desarrollo completo del **Proyecto Integrador** correspondiente a la materia **Programación Visual**, dictada en la **Facultad de Ingeniería** de la UNJU.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+El trabajo fue realizado por estudiantes, con el objetivo de afianzar los conocimientos teóricos y prácticos adquiridos durante la cursada. La propuesta consiste en crear una aplicación web moderna y funcional, implementando conceptos claves como el manejo de estado, componentes reutilizables, rutas dinámicas y consumo de APIS.
+En todo el trabajo, se  llevó a cabo utilizando tecnologías actuales para FRONTEND, teniendo en cuenta las  buenas prácticas de diseño y organización de código.
 
-## Expanding the ESLint configuration
+## 🖥️ Sobre la aplicación
+---
+Se trata de una **Single Page Application (SPA)** desarrollada con **React y Vite**, donde el usuario puede visualizar, crear, editar, eliminar y marcar productos como favoritos.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# PV_TPINTEGRADOR_GRUPO15
+
+### 🎯 Características principales
+---
+- 📦 Listado de productos mostrados en tarjetas visuales
+- ⭐ Gestión de favoritos (marcar/desmarcar)
+- 🔍 Visualización detallada de cada producto
+- ✏️ Formulario para alta y edición de productos
+- 🗑️ Eliminación de productos
+
+### 🌐 Consumo de datos
+---
+La APP obtiene información desde una API pública:  
+[https://fakestoreapi.com/products]
+Los productos se cargan automáticamente al iniciar la aplicación, y se almacenan en un estado global para ser accedidos desde cualquier parte del sistema.
+
+## 🛠️ Tecnologías utilizadas
+---
+- **React** – Para la construcción de la interfaz
+- **Vite** – Herramienta para crear el proyecto con rapidez
+- **React Router DOM** – Manejo de rutas y navegación
+- **Redux / Context API** – Control centralizado del estado
+- **Axios / Fetch** – Para obtener datos de la API
+- **CSS / Frameworks UI** – Diseño visual y experiencia de usuario
+
+## 📥 Clonar y ejecutar el proyecto
+---
+Primero, se debe iniciar VISUAL STUDIO CODE, luego ir a la opción “Clone Git Repository…” y copiar el siguiente repositorio: https://github.com/franpa13/PV_TPINTEGRADOR_GRUPO15.git
+El nombre del proyecto es: PV_TPINTEGRADOR_GRUPO15
+Luego se debe ir a la opción “Terminal” y abrir una nueva terminal.
+Después tenemos que ejecutar los siguientes comandos: 
+-npm install
+-npm run dev

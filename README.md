@@ -96,6 +96,8 @@ Los productos se cargan automáticamente al iniciar la aplicación, y se almacen
 
  -Ejecutar los siguientes comandos: 
  
- npm install
- npm run dev
+ -npm install
+
+
+ -npm run dev
 

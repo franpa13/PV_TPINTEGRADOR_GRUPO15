@@ -4,7 +4,7 @@ import { NavBar } from './components/navbar/NavBar';
 import SpinnerComponent from './components/ui/Spinner';
 import { useGetProducts } from './hooks/useGetProducts';
 
-import { HomePage } from './pages/home/HomePage'
+
 import { Footer } from './components/footer/Footer';
 
 function App() {
@@ -31,7 +31,6 @@ function App() {
           <Outlet />
         )}
       </section>
-
 
       <Footer />
     </div>)

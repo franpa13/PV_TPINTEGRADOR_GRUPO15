@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button, Container, Grid, Box } from "@mui/material";
+import { Button, Grid, Box } from "@mui/material";
 import { SnackbarComponent } from "../../components/ui/snackbar/Snackbar.jsx";
-import { addProduct } from "../../store/productsSlice.js";
+import { addProduct, productsSlice } from "../../store/productsSlice.js";
 import { Title } from "../../components/ui/Title.jsx";
 import Input from "../../components/ui/Input";
-import CustomButton from "../../components/ui/CustomButton";
 import { categoriasDisponibles } from "../../utils/categories.js";
 import Selector from "../../components/ui/Selector.jsx";
 import FileUploadSharpIcon from "@mui/icons-material/FileUploadSharp";
+import CustomCard from "../../components/ui/Card/CustomCard.jsx";
 export const CreateProduct = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [openSnackbarError, setOpenSnackbarError] = useState(false);
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     id: Date.now(),
@@ -24,7 +25,6 @@ export const CreateProduct = () => {
       count: "",
     },
   });
- 
 
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
@@ -32,7 +32,6 @@ export const CreateProduct = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     if (name === "rate" || name === "count") {
       setFormData({
         ...formData,
@@ -51,26 +50,46 @@ export const CreateProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addProduct(formData));
-    setFormData({
-      title: "",
-      price: "",
-      description: "",
-      category: "",
-      image: "",
-      rating: { rate: "", count: "" },
-    });
-    setOpenSnackbar(true);
+    if (
+      formData.title !== "" &&
+      formData.price !== "" &&
+      formData.description !== "" &&
+      formData.category !== "" &&
+      formData.image !== "" &&
+      formData.rating.rate !== "" &&
+      formData.rating.count !== ""
+    ) {
+      dispatch(addProduct(formData));
+      setFormData({
+        title: "",
+        price: "",
+        description: "",
+        category: "",
+        image: "",
+        rating: { rate: "", count: "" },
+      });
+      setOpenSnackbar(true);
+    } else {
+      setOpenSnackbarError(true);
+    }
+  };
+  const handleCloseSnackbarError = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnackbarError(false);
   };
 
   return (
-    <Container maxWidth="sm">
-      <Title className="text-2xl xl:text-3xl text-center text-green-700 my-5" text="Agregar Producto">
+    <CustomCard>
+      <Title
+        className="text-2xl xl:text-3xl text-center text-green-700 my-5"
+        text="Agregar Producto"
+      >
         <FileUploadSharpIcon fontSize="large" />
-
       </Title>
 
-      <Box sx={{ my: 4, pb: 4 }}>
+      <Box sx={{ my: 4, pb: 4, flexDirection: "column" }}>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}></Grid>
           <Input
@@ -80,6 +99,7 @@ export const CreateProduct = () => {
             value={formData.title}
             onChange={handleChange}
             required
+            type="text"
           />
           <Input
             id="product-price"
@@ -128,6 +148,10 @@ export const CreateProduct = () => {
             onChange={handleChange}
             step="0.1"
             variant="outlined"
+            inputProps={{
+              min: 0,
+              max: 5,
+            }}
           />
           <Input
             label="Cantidad de Reseñas"
@@ -138,10 +162,14 @@ export const CreateProduct = () => {
             variant="outlined"
           />
           <Grid item xs={12} sx={{ mb: 4 }}></Grid>
-          <Button onClick={handleSubmit} type="submit" variant="contained" color="primary">
+          <Button
+            onClick={handleSubmit}
+            type="submit"
+            variant="contained"
+            color="primary"
+          >
             Crear Producto
           </Button>
-
         </form>
       </Box>
       <SnackbarComponent
@@ -152,6 +180,14 @@ export const CreateProduct = () => {
         vertical="bottom"
         horizontal="center"
       />
-    </Container>
+      <SnackbarComponent
+        open={openSnackbarError}
+        onClose={handleCloseSnackbarError}
+        message={"Formulario incompleto, por favor completa todos los campos."}
+        severity="warning"
+        vertical="bottom"
+        horizontal="center"
+      />
+    </CustomCard>
   );
 };

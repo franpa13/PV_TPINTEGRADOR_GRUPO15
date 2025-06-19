@@ -10,6 +10,7 @@ import { Box, Grid, Button, Container } from "@mui/material";
 import EditNoteSharpIcon from "@mui/icons-material/EditNoteSharp";
 import { categoriasDisponibles } from "../../utils/categories.js";
 import { ArrowBack } from "@mui/icons-material";
+import CustomCard from "../../components/ui/Card/CustomCard.jsx";
 
 export const EditProduct = () => {
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ export const EditProduct = () => {
     } else if (name === "price") {
       setFormData((prev) => ({
         ...prev,
-        [name]: (value),
+        [name]: value,
       }));
     } else {
       setFormData((prev) => ({
@@ -76,24 +77,25 @@ export const EditProduct = () => {
 
   return (
     <>
-      <Container maxWidth="sm">
-        <Title className="text-2xl xl:text-3xl text-center text-green-700 my-5" text="Editar Producto">
+      <CustomCard>
+        <Title
+          className="text-2xl xl:text-3xl text-center text-green-700 my-5"
+          text="Editar Producto"
+        >
           <EditNoteSharpIcon fontSize="large" />
-
-        </Title >
+        </Title>
         <div className="flex w-full justify-start">
           <Button
             variant="contained"
             startIcon={<ArrowBack />}
             onClick={() => navigate(-1)}
-            size='small'
+            size="small"
           >
             Volver
           </Button>
         </div>
 
         <Box sx={{ my: 4, pb: 4 }}>
-
           <form onSubmit={handleSubmit}>
             <Grid container spacing={3}>
               <Input
@@ -147,6 +149,10 @@ export const EditProduct = () => {
                 step="0.1"
                 value={formData.rating?.rate}
                 onChange={handleChange}
+                inputProps={{
+                  min: 0,
+                  max: 5,
+                }}
               />
               <Input
                 id="count"
@@ -155,6 +161,8 @@ export const EditProduct = () => {
                 type="number"
                 value={formData.rating?.count}
                 onChange={handleChange}
+                step="0.1"
+                variant="outlined"
               />
               <Button type="submit" variant="contained" color="primary">
                 Guardar Cambios
@@ -170,7 +178,7 @@ export const EditProduct = () => {
           vertical="bottom"
           horizontal="center"
         />
-      </Container>
+      </CustomCard>
     </>
   );
 };

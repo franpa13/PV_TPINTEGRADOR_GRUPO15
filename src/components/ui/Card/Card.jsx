@@ -8,59 +8,41 @@ import { Link } from 'react-router-dom';
 
 
 export default function CardComponent({ product }) {
+    if (!product) {
+        return null
+    }
 
     return (
-        <Card
-            sx={{
-                maxWidth: 300,
-                maxHeight: 700,
-                // Responsivo según el tamaño del dispositivo
-                '@media (max-width: 300px)': {
-                    maxWidth: 400,
-                    maxHeight: 700,
-                },
+        <div className="max-w-xs w-full lg:w-1/6 rounded-md overflow-hidden shadow-lg bg-white transition-all duration-200 hover:shadow-xl flex flex-col h-full">
+            {/* Product Image */}
+            <Link to={`/detail-product/${product.id}`} className="h-35 bg-gray-100 flex items-center justify-center p-2 relative">
+                <img
+                    className="max-h-full max-w-full object-contain"
+                    src={product.image}
+                    alt={product.title}
+                />
+            </Link>
 
-            }}
-        >
-            <CardHeader
-                sx={{
-                    padding: 0,
-                    textAlign: 'center',
-                    '& .MuiCardHeader-title': {  // selector para el título
-                        fontSize: '1.2rem',
-
-                    },
-                    '& .MuiCardHeader-subheader': { // selector para el subtítulo
-                        fontSize: '0.9rem',
-                        color: 'gray',
-                    },
-                }}
-                title={product.title || "Paella dish"}
-                subheader={`Categoria : ${product.category || "Seafood"}`}
-            />
-            <CardMedia
-                component="img"
-                sx={{
-                    width: '100%',
-                    height: 400,
-                    padding: 1,
-                    objectFit: 'cover',
-
-                }}
-                image={product.image || "https://via.placeholder.com/150"}
-                alt="Paella dish"
-            />
-          
-                
-                <div className='flex justify-between items-center m-2'>
-                    <span className='font-semibold text-lg'>${product?.price}
+            {/* Product Info */}
+            <div className="p-2 flex flex-col flex-grow">
+                {/* Title and Price */}
+                <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-gray-800 font-medium text-md line-clamp-2">
+                        {product?.title}
+                    </h3>
+                    <span className="text-gray-900 font-bold ml-2 whitespace-nowrap">
+                        ${product?.price}
                     </span>
-                    <ActionsCard id={product.id} isFavorite={product.favorite}></ActionsCard>
                 </div>
 
-           
 
+                {/* Actions */}
 
-        </Card>
+                <ActionsCard id={product.id} isFavorite={product.favorite} />
+
+            </div>
+        </div>
     );
 }
+
+

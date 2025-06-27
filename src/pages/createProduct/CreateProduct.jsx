@@ -71,6 +71,10 @@ export const CreateProduct = () => {
         rating: { rate: "", count: "" },
       });
       setOpenSnackbar(true);
+
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
     } else {
       setOpenSnackbarError(true);
     }
@@ -110,7 +114,7 @@ export const CreateProduct = () => {
       <SnackbarComponent
         open={openSnackbar}
         onClose={handleCloseSnackbar}
-        message={"Producto creado con éxito"}
+        message={"Producto creado con éxito, se lo redigira a la lista de productos"}
         severity="success"
         vertical="bottom"
         horizontal="center"

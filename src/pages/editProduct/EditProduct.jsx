@@ -3,14 +3,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { updateProduct } from "../../store/productsSlice";
 import { Title } from "../../components/ui/Title.jsx";
-import Input from "../../components/ui/Input";
-import Selector from "../../components/ui/Selector.jsx";
 import { SnackbarComponent } from "../../components/ui/snackbar/Snackbar.jsx";
 import { Box, Grid, Button, Container } from "@mui/material";
 import EditNoteSharpIcon from "@mui/icons-material/EditNoteSharp";
-import { categoriasDisponibles } from "../../utils/categories.js";
 import { ArrowBack } from "@mui/icons-material";
 import CustomCard from "../../components/ui/Card/CustomCard.jsx";
+import FormsProduct from "../../components/forms/FormsProduct.jsx";
 
 export const EditProduct = () => {
   const dispatch = useDispatch();
@@ -94,82 +92,12 @@ export const EditProduct = () => {
             Volver
           </Button>
         </div>
-
-        <Box sx={{ my: 4, pb: 4 }}>
-          <form onSubmit={handleSubmit}>
-            <Grid container spacing={3}>
-              <Input
-                id="title"
-                name="title"
-                label="Nombre del Producto"
-                value={formData.title}
-                onChange={handleChange}
-                required
-              />
-              <Input
-                id="price"
-                name="price"
-                label="Precio"
-                type="number"
-                value={formData.price}
-                onChange={handleChange}
-                required
-              />
-              <Selector
-                id="category"
-                name="category"
-                label="Categoría"
-                value={formData.category}
-                onChange={handleChange}
-                options={categoriasDisponibles}
-              />
-              <Input
-                id="description"
-                name="description"
-                label="Descripción"
-                multiline
-                rows={4}
-                value={formData.description}
-                onChange={handleChange}
-                required
-              />
-              <Input
-                id="image"
-                name="image"
-                label="URL de la imagen"
-                value={formData.image}
-                onChange={handleChange}
-                required
-              />
-              <Input
-                id="rate"
-                name="rate"
-                label="Puntuación"
-                type="number"
-                step="0.1"
-                value={formData.rating?.rate}
-                onChange={handleChange}
-                inputProps={{
-                  min: 0,
-                  max: 5,
-                }}
-              />
-              <Input
-                id="count"
-                name="count"
-                label="Cantidad de Reseñas"
-                type="number"
-                value={formData.rating?.count}
-                onChange={handleChange}
-                step="0.1"
-                variant="outlined"
-              />
-              <Button type="submit" variant="contained" color="primary">
-                Guardar Cambios
-              </Button>
-            </Grid>
-          </form>
-        </Box>
+        <FormsProduct
+          formData={formData}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          submitLabel="Editar producto"
+        />
         <SnackbarComponent
           open={openSnackbar}
           onClose={handleCloseSnackbar}

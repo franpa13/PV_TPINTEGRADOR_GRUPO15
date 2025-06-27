@@ -1,18 +1,20 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Button, Grid, Box } from "@mui/material";
+import { Button } from "@mui/material";
 import { SnackbarComponent } from "../../components/ui/snackbar/Snackbar.jsx";
-import { addProduct, productsSlice } from "../../store/productsSlice.js";
+import { addProduct } from "../../store/productsSlice.js";
 import { Title } from "../../components/ui/Title.jsx";
-import Input from "../../components/ui/Input";
-import { categoriasDisponibles } from "../../utils/categories.js";
-import Selector from "../../components/ui/Selector.jsx";
+import { ArrowBack } from "@mui/icons-material";
 import FileUploadSharpIcon from "@mui/icons-material/FileUploadSharp";
 import CustomCard from "../../components/ui/Card/CustomCard.jsx";
+import FormsProduct from "../../components/forms/FormsProduct.jsx";
+
 export const CreateProduct = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [openSnackbarError, setOpenSnackbarError] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     id: Date.now(),
     title: "",
@@ -88,90 +90,23 @@ export const CreateProduct = () => {
       >
         <FileUploadSharpIcon fontSize="large" />
       </Title>
+      <div className="flex w-full justify-start">
+        <Button
+          variant="contained"
+          startIcon={<ArrowBack />}
+          onClick={() => navigate(-1)}
+          size="small"
+        >
+          Volver
+        </Button>
+      </div>
+      <FormsProduct
+        formData={formData}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        submitLabel="Crear Producto"
+      ></FormsProduct>
 
-      <Box sx={{ my: 4, pb: 4, flexDirection: "column" }}>
-        <form onSubmit={handleSubmit}>
-          <Grid container spacing={3}></Grid>
-          <Input
-            id="product-title"
-            name="title"
-            label="Nombre del Producto"
-            value={formData.title}
-            onChange={handleChange}
-            required
-            type="text"
-          />
-          <Input
-            id="product-price"
-            label="Precio"
-            name="price"
-            type="number"
-            value={formData.price}
-            onChange={handleChange}
-            required
-          />
-          <Selector
-            id="product-category"
-            label="Categoría"
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            options={categoriasDisponibles}
-          />
-          <Input
-            id="product-description"
-            label="Descripción"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            required
-            multiline
-            rows={4}
-            variant="outlined"
-          />
-          <Input
-            id="product-image"
-            label="URL de la Imagen"
-            name="image"
-            type="url"
-            value={formData.image}
-            onChange={handleChange}
-            required
-            variant="outlined"
-          />
-          <Input
-            id="product-rating-rate"
-            label="Puntuación"
-            name="rate"
-            type="number"
-            value={formData.rating.rate}
-            onChange={handleChange}
-            step="0.1"
-            variant="outlined"
-            inputProps={{
-              min: 0,
-              max: 5,
-            }}
-          />
-          <Input
-            label="Cantidad de Reseñas"
-            name="count"
-            type="number"
-            value={formData.rating.count}
-            onChange={handleChange}
-            variant="outlined"
-          />
-          <Grid item xs={12} sx={{ mb: 4 }}></Grid>
-          <Button
-            onClick={handleSubmit}
-            type="submit"
-            variant="contained"
-            color="primary"
-          >
-            Crear Producto
-          </Button>
-        </form>
-      </Box>
       <SnackbarComponent
         open={openSnackbar}
         onClose={handleCloseSnackbar}
@@ -191,3 +126,4 @@ export const CreateProduct = () => {
     </CustomCard>
   );
 };
+export default CreateProduct;

@@ -14,32 +14,26 @@ export const ActionsCard = ({ id, isFavorite }) => {
         dispatch(toggleFavorite({ id }));
     }
     return (
-        <div className='flex justify-center items-end gap-0'>
-            <Link to={`/detail-product/${id}`}>
-                <TooltipComponent text="Ver detalle">
-                    <RemoveRedEyeOutlinedIcon className='cursor-pointer' fontSize='medium' color='success'></RemoveRedEyeOutlinedIcon>
-
-                </TooltipComponent>
-            </Link>
-
+        <div className='flex justify-between items-end gap-0'>
+        
 
 
             {isFavorite ? (
-                <TooltipComponent onClick={toggleFavoriteAction} text="Eliminar de favoritos">
+                <TooltipComponent  onClick={toggleFavoriteAction} text="Eliminar de favoritos">
 
-                    <FavoriteOutlinedIcon color='error'></FavoriteOutlinedIcon>
+                    <FavoriteOutlinedIcon fontSize='small' color='error'></FavoriteOutlinedIcon>
                 </TooltipComponent>
             ) : (
                 <TooltipComponent onClick={toggleFavoriteAction} text={"Agregar a favoritos"}>
 
-                    <FavoriteBorderOutlinedIcon color='error' className='cursor-pointer'></FavoriteBorderOutlinedIcon>
+                    <FavoriteBorderOutlinedIcon fontSize='small' color='error' className='cursor-pointer'></FavoriteBorderOutlinedIcon>
                 </TooltipComponent>
 
             )
             }
-            <Link to={`edit-product/${id}`}>
+            <Link to={`/edit-product/${id}`}>
                 <TooltipComponent text="Editar producto">
-                    <BorderColorOutlinedIcon className='cursor-pointer'  color='info'></ BorderColorOutlinedIcon>
+                    <BorderColorOutlinedIcon fontSize='small' className='cursor-pointer'  color='info'></ BorderColorOutlinedIcon>
 
                 </TooltipComponent>
             </Link>

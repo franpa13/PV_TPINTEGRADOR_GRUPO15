@@ -22,7 +22,7 @@ export const SnackbarComponent = ({
         severity={severity}
         sx={{
           width: "100%",
-          backgroundColor: "blue",
+          backgroundColor: "#1976d2",
           color: "white",
         }}
       >

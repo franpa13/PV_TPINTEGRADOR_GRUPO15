@@ -13,7 +13,6 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col relative">
-      <NavBar />
 
       {/* Spinner de carga*/}
       {loading && (
@@ -32,7 +31,7 @@ function App() {
         )}
       </section>
 
-      <Footer />
+
     </div>)
 }
 

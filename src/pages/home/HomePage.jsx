@@ -19,7 +19,7 @@ export const HomePage = () => {
                 </svg>
                 </Icon>
             </Title>
-            <div className="flex lg:justify-center justify-center items-center lg:items-start flex-wrap gap-3 gap-y-7  lg:gap-4">
+            <div className="flex lg:justify-center justify-center items-center lg:items-start flex-wrap gap-3 gap-y-7  lg:gap-4 lg:gap-y-10">
                 {products.length > 0 && products.map((prod) => {
                     return (
                         <CardComponent product={prod} key={prod.id}></CardComponent>

@@ -73,8 +73,8 @@ export const CreateProduct = () => {
       setOpenSnackbar(true);
 
       setTimeout(() => {
-        navigate("/");
-      }, 3000);
+        navigate("/home");
+      }, 2000);
     } else {
       setOpenSnackbarError(true);
     }

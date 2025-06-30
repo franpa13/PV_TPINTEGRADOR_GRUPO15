@@ -13,7 +13,7 @@ export default function CardComponent({ product }) {
     }
 
     return (
-        <div className="max-w-xs w-full lg:w-1/6 rounded-md overflow-hidden shadow-lg bg-white transition-all duration-200 hover:shadow-xl flex flex-col h-full">
+        <div className="max-w-xs w-full lg:w-1/6 rounded-md overflow-hidden shadow-lg bg-white transition-all duration-200 hover:shadow-xl flex flex-col h-62">
             {/* Product Image */}
             <Link to={`/detail-product/${product.id}`} className="h-35 bg-gray-100 flex items-center justify-center p-2 relative">
                 <img

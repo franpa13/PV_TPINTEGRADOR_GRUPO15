@@ -7,6 +7,9 @@ import { DetailProduct } from "./pages/detailProduct/DetailProduct";
 import { EditProduct } from "./pages/editProduct/EditProduct";
 import { CreateProduct } from "./pages/createProduct/CreateProduct";
 import { HomePage } from "./pages/home/HomePage";
+import { PrivateRoute } from "./layout/PrivateRoute";
+import { Login } from "./pages/login/Login";
+import { Register } from "./pages/register/Register";
 
 
 export const appRouter = createBrowserRouter([
@@ -16,24 +19,42 @@ export const appRouter = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <HomePage />,
+                element: <Login />
+            },
+            {
+                path: "register",
+                element: <Register />
+            },
+            {
+                path: "home",
+                element: <PrivateRoute>
+                    <HomePage />
+                </PrivateRoute>,
             },
             {
                 path: "favorites",
-                element: <Favorites></Favorites>,
+                element: <PrivateRoute>
+                    <Favorites />
+                </PrivateRoute>,
 
             },
             {
                 path: "detail-product/:id",
-                element: <DetailProduct></DetailProduct>,
+                element: <PrivateRoute>
+                    <DetailProduct />
+                </PrivateRoute>,
             },
             {
                 path: "edit-product/:id",
-                element: <EditProduct></EditProduct>
+                element: <PrivateRoute>
+                    <EditProduct />
+                </PrivateRoute>
             },
             {
                 path: "create-product",
-                element: <CreateProduct></CreateProduct>,
+                element: <PrivateRoute>
+                    <CreateProduct />
+                </PrivateRoute>,
             }
 
 

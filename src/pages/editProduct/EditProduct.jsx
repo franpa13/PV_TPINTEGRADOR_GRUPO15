@@ -32,6 +32,7 @@ export const EditProduct = () => {
             rate: producto.rating?.rate || 0,
             count: producto.rating?.count || 0,
           },
+          favorite: producto.favorite || false,
         });
       }
     }

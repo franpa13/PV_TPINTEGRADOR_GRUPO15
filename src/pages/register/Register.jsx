@@ -1,50 +1,102 @@
-import { Button } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../store/auth";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-// aqui va el form de register
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../../store/auth';
+import { registerSchema } from '../../utils/validationSchemas';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import TextField from '@mui/material/TextField';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 export const Register = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const [email, setEmail]= useState('');
-    const [password, setPassword]= useState('');
-    const [password2, setPassword2]= useState('');
-    const lastId = useSelector((state) => state.auth.users.length);
+    const dispatch = useDispatch(); 
+    const navigate = useNavigate(); 
 
-    const handleSubmit =(e)=>{
-        e.preventDefault();
-        const data = {
-            id: lastId + 1,
-            email,
-            password
-        }
+    const { register, handleSubmit, formState: { errors }, reset } = useForm({ // Desestructure necessary functions and state
+        resolver: yupResolver(registerSchema), 
+         defaultValues: {
+             email: '@gmail.com'
+         }
+    });
+
+    const onSubmit = (data) => {
+        console.log("Formulario válido, datos:", data); // Keep existing console logs
+        const newUserId = Date.now();
+        const userData = {
+            id: newUserId,
+            email: data.email,
+            password: data.password
+        };
         console.log("Enviado para evaluacion");
-        dispatch(
-            registerUser(data)
-        )
-       // navigate("/");
-    }        
+        dispatch(registerUser(userData)); 
+        reset();
+        navigate("/");
+    };
+    //solo en caso que la validaciones fallen
+    const onError = (errors, e) => {
+        console.log("Errores de validación:", errors); 
+    };
 
     return (
-        // solo probe si andaba bien
-        
-        <div>
-            <h2>Nuevo Usuario</h2>
-            <form action="" onSubmit={handleSubmit}>
-                <label >Correo electronimo: </label>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Ingrese su correo'/>
-                <label>Contraseña: </label>
-                <input type="text" value={password} onChange={(e)=> setPassword(e.target.value)} placeholder='Contraseña'/>
-            {/*  <label>Repetir contraseña: </label>
-                <input type="text" value={password2} onChange={(e)=> setPassword2(e.target.value)} placeholder='Repetir contraseña'/>
-            */}
-                <Button type='submit'>Guardar</Button>
-            </form>
-            
-        </div>
-
-    )
+        <Container component="main" maxWidth="xs">
+            <Box
+                sx={{
+                    marginTop: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                <Typography component="h1" variant="h5">
+                    Nuevo Usuario
+                </Typography>
+                <Box component="form" onSubmit={handleSubmit(onSubmit, onError)} noValidate sx={{ mt: 1 }}>
+                    <TextField
+                        margin="normal"
+                        fullWidth
+                        id="email"
+                        label="Correo electronico"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
+                        {...register("email")} 
+                        error={!!errors.email}
+                        helperText={errors.email?.message}
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Contraseña"
+                        type="password"
+                        id="password"
+                        autoComplete="new-password"
+                        {...register("password")} 
+                        error={!!errors.password}
+                        helperText={errors.password?.message}
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password2"
+                        label="Repetir contraseña"
+                        type="password"
+                        id="password2"
+                        autoComplete="new-password"
+                        {...register("password2")} 
+                        error={!!errors.password2}
+                        helperText={errors.password2?.message}
+                    />
+                    <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} color='success'>
+                        Guardar
+                    </Button>
+                </Box>
+            </Box>
+        </Container>
+    );
 }

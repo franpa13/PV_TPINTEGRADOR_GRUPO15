@@ -7,6 +7,7 @@ const initialState = {
     users: storedUsers,
     currentUser: storedCurrentUser,
     isAuthenticated: !!storedCurrentUser,
+    registerSuccess: null,
 };
 
 export const authSlice = createSlice({
@@ -19,8 +20,10 @@ export const authSlice = createSlice({
                 state.users.push(action.payload);
                 localStorage.setItem("users", JSON.stringify(state.users));
                 console.log("El usuario se agregó correctamente.");
+                state.registerSuccess = true;
             } else {
                 console.warn("El usuario ya está registrado.");
+                state.registerSuccess = false;
             }
         },
         loginUser: (state, action) => {
@@ -39,8 +42,11 @@ export const authSlice = createSlice({
             state.isAuthenticated = false;
             localStorage.removeItem("currentUser");
         },
+        resetRegisterSuccess: (state) => {
+            state.registerSuccess = null;
+        },
     },
 });
 
-export const { registerUser, loginUser, logoutUser } = authSlice.actions;
+export const { registerUser, loginUser, logoutUser, resetRegisterSuccess } = authSlice.actions;
 export default authSlice.reducer;

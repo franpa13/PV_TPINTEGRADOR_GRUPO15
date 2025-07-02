@@ -31,7 +31,12 @@ export const Register = () => {
             password: data.password
         };
         console.log("Enviado para evaluacion");
-        dispatch(registerUser(userData)); 
+        const response =  dispatch(registerUser(userData)); 
+        if (response) {
+            console.log("Usuario registrado correctamente");
+        } else {
+            console.warn("El usuario ya está registrado");
+        }
         reset();
         navigate("/");
     };

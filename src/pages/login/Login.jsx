@@ -8,7 +8,7 @@ export const Login = () => {
         // solo probe si andaba bien
         <div>
             <h2>login</h2>
-            <Button onClick={() => dispatch(loginUser({ email: "hola", password: "hola" }))} >button</Button>
+            <Button onClick={() => dispatch(loginUser({ email: "uchija", password: "madara" }))} >button</Button>
         </div>
     )
 }

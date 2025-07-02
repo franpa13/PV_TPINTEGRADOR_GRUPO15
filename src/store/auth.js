@@ -18,6 +18,7 @@ export const authSlice = createSlice({
             if (!userExists) {
                 state.users.push(action.payload);
                 localStorage.setItem("users", JSON.stringify(state.users));
+                console.log("El usuario se agregó correctamente.");
             } else {
                 console.warn("El usuario ya está registrado.");
             }

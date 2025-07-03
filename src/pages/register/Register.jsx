@@ -10,6 +10,7 @@ import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { Zenitho } from 'uvcanvas';
 
 export const Register = () => {
     const dispatch = useDispatch(); 
@@ -55,9 +56,14 @@ export const Register = () => {
                     alignItems: 'center',
                 }}
             >
-                <Typography component="h1" variant="h5">
-                    Nuevo Usuario
-                </Typography>
+                <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
+                <Zenitho />
+                 </div>
+                 <div style={{ position: 'relative', zIndex: 1, padding: '1rem' }}>
+                    <Typography component="h1" variant="h5" color='white' >
+                        Registro Nuevos Usuarios
+                     </Typography>
+                 </div>
                 <Box component="form" onSubmit={handleSubmit(onSubmit, onError)} noValidate sx={{ mt: 1 }}>
                     <TextField
                         margin="normal"

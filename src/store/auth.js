@@ -9,6 +9,7 @@ const initialState = {
     isAuthenticated: !!storedCurrentUser,
     registerSuccess: null,
     loginError: null, // AÑADE el estado loginError al initialState
+    alertRegister: null, // { type: 'success' | 'error' | 'info', message: string }
 };
 
 export const authSlice = createSlice({
@@ -20,9 +21,10 @@ export const authSlice = createSlice({
             if (!userExists) {
                 state.users.push(action.payload);
                 localStorage.setItem("users", JSON.stringify(state.users));
-                console.log("El usuario se agregó correctamente.");
+                console.log("Usuario registrado con éxito.");
                 state.registerSuccess = true;
                 state.loginError = null; // LIMPIA loginError al registrar con éxito]
+                state.alertRegister = { type: "success", message: "Usuario registrado con éxito." };
             } else {
                 console.warn("El usuario ya está registrado.");
                 state.registerSuccess = false;
@@ -57,8 +59,11 @@ export const authSlice = createSlice({
         resetLoginError: (state) => { // Añade el reducer resetLoginError
             state.loginError = null;
         },
+        clearAlertRegister: (state) => {
+            state.alertRegister = null; // LIMPIA el estado de alerta
+        }
     },
 });
 
-export const { registerUser, loginUser, logoutUser, resetRegisterSuccess, resetLoginError } = authSlice.actions; // [Commit: Exporta la acción resetLoginError]
+export const { registerUser, loginUser, logoutUser, resetRegisterSuccess, resetLoginError, clearAlertRegister } = authSlice.actions; // [Commit: Exporta la acción resetLoginError]
 export default authSlice.reducer;

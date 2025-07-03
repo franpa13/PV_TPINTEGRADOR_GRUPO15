@@ -8,6 +8,7 @@ export const SnackbarComponent = ({
   duration = 3000,
   vertical = "bottom",
   horizontal = "right",
+ 
 }) => {
   return (
     <Snackbar
@@ -15,6 +16,8 @@ export const SnackbarComponent = ({
       autoHideDuration={duration}
       onClose={onClose}
       anchorOrigin={{ vertical, horizontal }}
+      resumeHideDuration={duration}
+      
     >
       <Alert
         variant="filled"

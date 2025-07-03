@@ -5,13 +5,13 @@ import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone'; //Nuevo i
 import { useSelector } from "react-redux";
 
 export const Favorites = () => {
-  const products = useSelector((state) => state.products);
+  const products = useSelector((state) => state.products.products);
   const favorites = products.filter((product) => product.favorite);
 
   return (
     <div className="p-5 w-full">
 
-      <Title className="flex items-center gap-2 justify-center text-2xl xl:text-3xl text-center text-green-700 mb-8" text="Mis Favoritos">
+      <Title className="flex items-center gap-2 justify-center text-2xl xl:text-3xl text-center text-green-700 mb-0" text="Mis Favoritos">
         <FavoriteTwoToneIcon fontSize="inherit" className="mt-1" /> {/*Icono corazon al lado del titulo */}
       </Title>
 

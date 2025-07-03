@@ -5,7 +5,14 @@ import Tooltip from '@mui/material/Tooltip';
 export default function TooltipComponent({ children, text, onClick }) {
     return (
         <Tooltip title={text || "Eliminar"}>
-            <IconButton onClick={onClick}>
+            <IconButton sx={
+                {
+                    color: 'white',
+
+                    borderRadius: '50%',
+
+                }
+            } onClick={onClick}>
                 {children || <DeleteIcon />}
             </IconButton>
         </Tooltip>

@@ -21,7 +21,7 @@ export const Login = () => {
 
     //INICIA useForm
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
-   
+
     // Obtener estados relevantes de Redux
     const isRegisterSuccess = useSelector((state) => state.auth.registerSuccess);
     const loginErrorMessage = useSelector((state) => state.auth.loginError);
@@ -30,9 +30,10 @@ export const Login = () => {
     // Efecto para REDIRIGIR si el usuario ya está AUTENTICADO
     useEffect(() => {
         if (isAuthenticated) {
-            navigate('/'); // Redirige a la Home si ya está autenticado
+            navigate('/shop'); // Redirige a la Home si ya está autenticado
         }
     }, [isAuthenticated, navigate]);
+    console.log(isAuthenticated, "is authenticated");
 
     const onSubmit = (data) => {
         // data contendrá { email: "valor", password: "valor" }
@@ -42,19 +43,20 @@ export const Login = () => {
         dispatch(resetRegisterSuccess());
 
         dispatch(loginUser({ email: data.email, password: data.password }));
+
     };
 
     const handleCloseRegisterSnackbar = () => {
         dispatch(resetRegisterSuccess());
     };
-    
+
     const handleCloseLoginError = () => {
         dispatch(resetLoginError());
     };
 
     // Función para manejar el clic en el BOTON/ENLACE de REGISTRO
     const handleRegisterClick = () => {
-        navigate('/register'); // Redirige a la ruta de REGISTRO
+        navigate('/auth/register'); // Redirige a la ruta de REGISTRO
     };
 
     return (
@@ -103,7 +105,7 @@ export const Login = () => {
 
                         // REGISTRA el INPUT con useForm
                         {...register("password", { required: "La contraseña es obligatoria" })}
-                        
+
                         // Muestra error
                         error={!!errors.password}
                         helperText={errors.password?.message}

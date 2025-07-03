@@ -11,7 +11,7 @@ export const DetailProduct = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const product = useSelector(state =>
-        state.products.find(p => p.id === parseInt(id)));
+        state.products.products.find(p => p.id === parseInt(id)));
 
     if (!product) {
         return <Error message='No se encontro el producto!'></Error>;
@@ -21,6 +21,7 @@ export const DetailProduct = () => {
         dispatch(removeProduct(product))
         navigate("/")
     }
+    
     return (
         <Box sx={{
             minHeight: '100vh',

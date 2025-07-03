@@ -15,11 +15,11 @@ export const ActionsCard = ({ id, isFavorite }) => {
     }
     return (
         <div className='flex justify-between items-end gap-0'>
-        
+
 
 
             {isFavorite ? (
-                <TooltipComponent  onClick={toggleFavoriteAction} text="Eliminar de favoritos">
+                <TooltipComponent onClick={toggleFavoriteAction} text="Eliminar de favoritos">
 
                     <FavoriteOutlinedIcon fontSize='small' color='error'></FavoriteOutlinedIcon>
                 </TooltipComponent>
@@ -31,9 +31,9 @@ export const ActionsCard = ({ id, isFavorite }) => {
 
             )
             }
-            <Link to={`/edit-product/${id}`}>
+            <Link to={`/shop/edit-product/${id}`}>
                 <TooltipComponent text="Editar producto">
-                    <BorderColorOutlinedIcon fontSize='small' className='cursor-pointer'  color='info'></ BorderColorOutlinedIcon>
+                    <BorderColorOutlinedIcon fontSize='small' className='cursor-pointer' color='info'></ BorderColorOutlinedIcon>
 
                 </TooltipComponent>
             </Link>

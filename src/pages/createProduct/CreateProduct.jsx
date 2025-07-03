@@ -62,6 +62,7 @@ export const CreateProduct = () => {
       formData.rating.count !== ""
     ) {
       dispatch(addProduct(formData));
+
       setFormData({
         title: "",
         price: "",
@@ -70,11 +71,8 @@ export const CreateProduct = () => {
         image: "",
         rating: { rate: "", count: "" },
       });
-      setOpenSnackbar(true);
+      navigate("/shop");
 
-      setTimeout(() => {
-        navigate("/home");
-      }, 2000);
     } else {
       setOpenSnackbarError(true);
     }
@@ -111,14 +109,7 @@ export const CreateProduct = () => {
         submitLabel="Crear Producto"
       ></FormsProduct>
 
-      <SnackbarComponent
-        open={openSnackbar}
-        onClose={handleCloseSnackbar}
-        message={"Producto creado con éxito, se lo redigira a la lista de productos"}
-        severity="success"
-        vertical="bottom"
-        horizontal="center"
-      />
+
       <SnackbarComponent
         open={openSnackbarError}
         onClose={handleCloseSnackbarError}

@@ -3,7 +3,7 @@ import { useActiveRoute } from "../../hooks/useActiveRoute";
 
 export const Footer = () => {
 
-    const pages = [{ label: 'Home', path: "/" }, { label: 'favoritos', path: "/favorites" }, { label: 'Nuevo producto', path: "/create-product" }];
+    const pages = [{ label: 'Home', path: "/shop" }, { label: 'favoritos', path: "/shop/favorites" }, { label: 'Nuevo producto', path: "/shop/create-product" }];
     const isActive = useActiveRoute();
     return (
         <footer className="bg-[#2e7d32] rounded-lg shadow-sm  m-0">
@@ -26,7 +26,7 @@ export const Footer = () => {
                         {pages.map((page) => {
                             return (
                                 <Link key={page.path} to={page.path} >
-                                    <li className={`hover:underline ${isActive(page.path) ? "underline" : "underline-none"} mr-4 md:mr-6 `}>
+                                    <li className={`hover:underline ${isActive(page.path, true) ? "underline" : "underline-none"} mr-4 md:mr-6 `}>
 
                                         {page.label}
 

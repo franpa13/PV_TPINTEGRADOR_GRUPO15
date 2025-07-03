@@ -13,7 +13,7 @@ import FormsProduct from "../../components/forms/FormsProduct.jsx";
 export const EditProduct = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const allProducts = useSelector((state) => state.products); // productos es un array directo
+  const allProducts = useSelector((state) => state.products.products); // productos es un array directo
   const [formData, setFormData] = useState(null);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const navigate = useNavigate();
@@ -64,6 +64,7 @@ export const EditProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateProduct(formData));
+    navigate("/shop")
     setOpenSnackbar(true);
   };
 

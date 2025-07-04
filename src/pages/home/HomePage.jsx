@@ -1,32 +1,67 @@
+import { useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import CardComponent from "../../components/ui/Card/Card";
 import { Title } from "../../components/ui/Title";
-
+import Carrusel from "../../components/carrusel/Carrusel";
 import Icon from "../../components/ui/Icon";
-
+import FilterBar from "../../components/filtro/FiltroProductos";
 
 export const HomePage = () => {
+  const products = useSelector((state) => state.products.products);
 
+  /* —— Estados de Filtro —— */
+  const [category, setCategory] = useState("all");
+  const [rating, setRating] = useState(0); // 👈  AHORA SÍ existe
 
-    const products = useSelector((state) => state.products)
+  /* —— Categorías únicas para el Select —— */
+  const categories = useMemo(
+    () => ["all", ...new Set(products.map((p) => p.category))],
+    [products]
+  );
 
+  /* —— Filtrado por categoría + rating —— */
+  const filtered = useMemo(() => {
+    return products.filter((p) => {
+      const okCat = category === "all" || p.category === category;
+      const okRating = p.rating.rate >= rating;
+      return okCat && okRating;
+    });
+  }, [products, category, rating]);
 
-    return (
-        <section className="p-5 w-full flex flex-col gap-5 ">
-            <Title className="text-2xl xl:text-3xl text-center text-green-700 mb-8" text="Todos los productos ">
-                <Icon fontSize = "large"  variant="conteined" > <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                </svg>
-                </Icon>
-            </Title>
-            <div className="flex lg:justify-between justify-center items-center lg:items-start flex-wrap gap-3 gap-y-7  2xl:gap-6">
-                {products.length > 0 && products.map((prod) => {
-                    return (
-                        <CardComponent product={prod} key={prod.id}></CardComponent>
-                    )
-                })}
-            </div>
+  return (
+    <>
+      <Carrusel />
 
-        </section>
-    )
-}
+      {/* —— Barra de filtros —— */}
+      <FilterBar
+        category={category}
+        setCategory={setCategory}
+        rating={rating}
+        setRating={setRating}
+        categories={categories}
+      />
+
+      {/* —— Título —— */}
+      <Title
+        className="text-2xl xl:text-3xl text-center mb-8 font-bernard"
+        style={{ color: "#DF1074" }}
+        text="Bienvenido a nuestra colección 2025"
+      >
+        <Icon fontSize="large" />
+      </Title>
+
+      {/* —— Productos —— */}
+      <section className="p-5 w-full flex flex-col gap-5">
+        <div className="flex justify-center flex-wrap gap-4 lg:gap-6">
+          {filtered.length === 0 ? (
+            <p>No hay productos que coincidan.</p>
+          ) : (
+            filtered.map((prod) => (
+              <CardComponent key={prod.id} product={prod} />
+            ))
+          )}
+        </div>
+      </section>
+    </>
+  );
+};

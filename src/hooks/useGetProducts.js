@@ -14,8 +14,8 @@ export const useGetProducts = () => {
                 const response = await fetch("https://fakestoreapi.com/products");
                 const data = await response.json();
 
-                // Simular una demora de 1 segundo extra
-                await new Promise(resolve => setTimeout(resolve, 1000));
+
+              
 
                 const dataFormatted = data.map((prod) => {
                     return {

@@ -21,7 +21,7 @@ export const DetailProduct = () => {
 
   const deleteProd = () => {
     dispatch(removeProduct(product));
-    navigate("/");
+    navigate("/shop");
   };
 
   return (

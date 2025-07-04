@@ -5,6 +5,8 @@ export const registerSchema = Yup.object().shape({
     email: Yup.string()
         .email('Correo electrónico no válido') // Valida formato de email
         .required('El correo electrónico es obligatorio'), 
+    userName: Yup.string()
+        .required('El nombre de usuario es obligatorio'),
     password: Yup.string()
         .min(6, 'La contraseña debe tener al menos 6 caracteres') // Mínimo 6 caracteres
         .required('La contraseña es obligatoria'), 

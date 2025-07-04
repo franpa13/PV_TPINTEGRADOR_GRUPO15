@@ -28,6 +28,7 @@ export const Register = () => {
         const newUserId = Date.now();
         const userData = {
             id: newUserId,
+            userName: data.userName,
             email: data.email,
             password: data.password
         };
@@ -63,6 +64,19 @@ export const Register = () => {
                             Nuevo Usuario
                         </Typography>
                         <Box component="form" onSubmit={handleSubmit(onSubmit, onError)} noValidate sx={{ mt: 1 }}>
+                            <TextField
+                                margin="normal"
+                                fullWidth
+                                id="userName"
+                                label="Nombre Publico"
+                                name="userName"
+                                autoComplete="userName"
+                                autoFocus
+                                {...register("userName")}
+                                error={!!errors.username}
+                                helperText={errors.username?.message}
+                                color="secondary"
+                            />
                             <TextField
                                 margin="normal"
                                 fullWidth

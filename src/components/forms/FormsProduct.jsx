@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
-import { Stack, Box, Grid, Button, TextField } from "@mui/material";
+import { Box, Grid, Button, TextField } from "@mui/material";
 import Selector from "../../components/ui/Selector.jsx";
-import Input from "../../components/ui/Input";
 const EMPTY_RATING = { rate: "", count: "" };
 import { categoriasDisponibles } from "../../utils/categories.js";
 

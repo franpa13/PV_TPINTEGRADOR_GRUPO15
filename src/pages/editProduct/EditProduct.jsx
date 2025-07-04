@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { updateProduct } from "../../store/productsSlice";
 import { Title } from "../../components/ui/Title.jsx";
 import { SnackbarComponent } from "../../components/ui/Snackbar.jsx";
-import { Box, Grid, Button, Container } from "@mui/material";
+import { Button } from "@mui/material";
 import EditNoteSharpIcon from "@mui/icons-material/EditNoteSharp";
 import { ArrowBack } from "@mui/icons-material";
 import CustomCard from "../../components/Card/CustomCard.jsx";

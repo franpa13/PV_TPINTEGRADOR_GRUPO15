@@ -3,13 +3,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { updateProduct } from "../../store/productsSlice";
 import { Title } from "../../components/ui/Title.jsx";
-import { SnackbarComponent } from "../../components/ui/snackbar/Snackbar.jsx";
+import { SnackbarComponent } from "../../components/ui/Snackbar.jsx";
 import { Box, Grid, Button, Container } from "@mui/material";
 import EditNoteSharpIcon from "@mui/icons-material/EditNoteSharp";
 import { ArrowBack } from "@mui/icons-material";
-import CustomCard from "../../components/ui/Card/CustomCard.jsx";
+import CustomCard from "../../components/Card/CustomCard.jsx";
 import FormsProduct from "../../components/forms/FormsProduct.jsx";
-
 export const EditProduct = () => {
   const dispatch = useDispatch();
   const { id } = useParams();

@@ -3,7 +3,7 @@ import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import TooltipComponent from '../ui/Tooltip';
-import { toggleFavorite } from '../../../store/productsSlice';
+import { toggleFavorite } from '../../store/productsSlice';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 export const ActionsCard = ({ id, isFavorite }) => {
 

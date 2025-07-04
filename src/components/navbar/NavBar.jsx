@@ -10,6 +10,7 @@ import {
   MenuItem,
   useTheme,
   alpha,
+  Avatar
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -18,7 +19,7 @@ import { useState } from "react";
 import { useActiveRoute } from "../../hooks/useActiveRoute";
 import TooltipComponent from "../ui/Tooltip";
 import { logoutUser } from "../../store/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import icono from "../../assets/icono.jpg";
 
 const ACCENT = "#DF1074"; // rosa del logo
@@ -37,6 +38,7 @@ export const NavBar = () => {
   const dispatch = useDispatch();
   const isActive = useActiveRoute();
   const theme = useTheme();
+  const name = useSelector((state) => state.auth.currentUser);
 
   /* Handlers */
   const handleOpenNavMenu = (e) => setAnchorElNav(e.currentTarget);
@@ -98,10 +100,11 @@ export const NavBar = () => {
                   mt: 1,
                   px: 1,
                   borderRadius: 2,
-                  boxShadow: theme.shadows[6],
-                },
+                  boxShadow: theme.shadows[6]
+                }
               }}
             >
+              <Typography sx={{ bgcolor: "#e4559b", color: 'white', borderRadius: '5%', p: 0.5, ml: 1 }}>{name.userName}</Typography>
               {pages.map(({ label, path }) => (
                 <MenuItem
                   key={path}
@@ -184,12 +187,13 @@ export const NavBar = () => {
           </Box>
 
           {/* ——————— Logout (desktop) ——————— */}
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <TooltipComponent text="Cerrar sesión" onClick={handleLogout}>
+          <Box sx={{ display: { xs: "none", md: "flex", alignItems: "center" } }}>
+          <Typography sx={{ bgcolor: "#e4559b", color: 'white', borderRadius: '15%', p: 0.5, ml: 0.5 }}>{name.userName}</Typography>
+          <TooltipComponent text="Cerrar sesión" onClick={handleLogout}>
               <IconButton sx={{ "&:hover": { color: ACCENT } }}>
                 <LogoutIcon />
               </IconButton>
-            </TooltipComponent>
+          </TooltipComponent>
           </Box>
         </Toolbar>
       </Container>

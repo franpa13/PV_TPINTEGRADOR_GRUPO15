@@ -64,7 +64,7 @@ export const EditProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateProduct(formData));
-    navigate("/shop")
+    navigate("/shop");
     setOpenSnackbar(true);
   };
 
@@ -79,7 +79,7 @@ export const EditProduct = () => {
     <>
       <CustomCard>
         <Title
-          className="text-2xl xl:text-3xl text-center text-green-700 my-5"
+          className="text-2xl xl:text-3xl text-center text-pink-600  my-5"
           text="Editar Producto"
         >
           <EditNoteSharpIcon fontSize="large" />

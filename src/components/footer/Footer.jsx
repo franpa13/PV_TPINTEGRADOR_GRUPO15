@@ -1,52 +1,57 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useActiveRoute } from "../../hooks/useActiveRoute";
+import icono from "../../assets/icono.jpg";
+
+const pages = [
+  { label: "Home", path: "/shop" },
+  { label: "Favoritos", path: "/shop/favorites" },
+  { label: "Nuevo producto", path: "/shop/create-product" },
+];
 
 export const Footer = () => {
+  const isActive = useActiveRoute();
 
-    const pages = [{ label: 'Home', path: "/shop" }, { label: 'favoritos', path: "/shop/favorites" }, { label: 'Nuevo producto', path: "/shop/create-product" }];
-    const isActive = useActiveRoute();
-    return (
-        <footer className="bg-[#2e7d32] rounded-lg shadow-sm  m-0">
-            <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
-                <div className="sm:flex sm:items-center sm:justify-between">
-                    <a
-                        href="https://flowbite.com/"
-                        className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
-                    >
-                        <img
-                            src="https://www.revistaeyn.com/binrepository/1084x750/43c0/1000d750/none/26086/VVMA/moda-ropausada-americana-2023_5809344_20231018143322.jpg"
-                            className="h-8"
-                            alt="CHANGO MAS LOGO"
-                        />
-                        <span className="self-center text-white text-2xl font-semibold whitespace-nowrap ">
-                            Supermarket
-                        </span>
-                    </a>
-                    <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-white sm:mb-0 ">
-                        {pages.map((page) => {
-                            return (
-                                <Link key={page.path} to={page.path} >
-                                    <li className={`hover:underline ${isActive(page.path, true) ? "underline" : "underline-none"} mr-4 md:mr-6 `}>
+  return (
+    <footer className="bg-[#FFF0F6] border-t-4 border-[#DF1074]">
+      <div className="w-full max-w-screen-xl mx-auto px-4 py-8 sm:flex sm:items-center sm:justify-between">
+        {/* ———— Brand ———— */}
+        <Link to="/shop" className="flex items-center space-x-3 mb-6 sm:mb-0">
+          <img
+            src={icono}
+            alt="logo"
+            className="w-10 h-10 rounded-full shadow-md hover:scale-105 transition"
+          />
+          <span className="self-center text-2xl font-semibold text-[#333]">
+            FASHIONISTA
+          </span>
+        </Link>
 
-                                        {page.label}
+        {/* ———— Links ———— */}
+        <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-medium">
+          {pages.map(({ label, path }) => (
+            <li key={path}>
+              <Link
+                to={path}
+                className={`${
+                  isActive(path, true)
+                    ? "underline text-[#DF1074]"
+                    : "text-[#333]"
+                } hover:text-[#DF1074] transition`}
+              >
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
 
-                                    </li>
-                                </Link>
-
-                            )
-                        })}
-
-                    </ul>
-                </div>
-                <hr className="my-6 border-gray-200 sm:mx-auto d lg:my-8" />
-                <span className="block text-sm text-white sm:text-center ">
-                    © 2025{' '}
-                    <a href="https://flowbite.com/" className="hover:underline">
-                        GRUPO 15
-                    </a>
-                    . Programacion visual 2025.
-                </span>
-            </div>
-        </footer>
-    );
+      {/* ———— Bottom bar ———— */}
+      <div className="bg-[#FCE4EC]">
+        <p className="text-center py-4 text-sm text-[#333]">
+          © 2025 <span className="font-semibold">GRUPO 15</span>. Programación
+          visual 2025.
+        </p>
+      </div>
+    </footer>
+  );
 };

@@ -14,6 +14,7 @@ import {
     Alert,
     Link
 } from '@mui/material';
+import './Login.css'; // Asegúrate de que esta ruta sea correcta: './login.css'
 
 export const Login = () => {
     const dispatch = useDispatch();
@@ -60,85 +61,104 @@ export const Login = () => {
     };
 
     return (
-        <Container component="main" maxWidth="xs">
-            <Box
-                sx={{
-                    marginTop: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}
-            >
-                <Typography component="h1" variant="h5">
-                    Iniciar Sesión
-                </Typography>
-                {/* CONECTA el formulario con handleSubmit de useForm */}
-                <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Correo electrónico"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                        color="success"
-
-                        // Registra el INPUT con useForm
-                        {...register("email", { required: "El correo es obligatorio" })}
-
-                        // Muestra errores 
-                        error={!!errors.email}
-                        helperText={errors.email?.message}
-                    />
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Contraseña"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                        color="success"
-
-                        // REGISTRA el INPUT con useForm
-                        {...register("password", { required: "La contraseña es obligatoria" })}
-
-                        // Muestra error
-                        error={!!errors.password}
-                        helperText={errors.password?.message}
-                    />
-                    {/* MENSAJE de ERROR de inicio de sesión */}
-                    {loginErrorMessage && (
-                        <Alert severity="error" sx={{ mt: 2 }} onClose={handleCloseLoginError}>
-                            {loginErrorMessage}
-                        </Alert>
-                    )}
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
-                        color="success"
+        // DIV PRINCIPAL que APLICA el FONDO a toda la pantalla.
+        <div className="login-background"> 
+            {/* Este div ENVUELVE el CONTENIDO del login (el FORMULARIO)
+                y lo centra usando Flexbox. Su estilo está en login.css (.login-content-wrapper) */}
+            <div className="login-content-wrapper"> 
+                {/* El Container de Material-UI que contiene el formulario.
+                    Le aplicamos la clase 'login-form-container' para darle el fondo blanco y la sombra. */}
+                <Container
+                    component="main"
+                    maxWidth="xs"
+                    className="login-form-container"
+                >
+                    <Box
+                        sx={{
+                            marginTop: 8,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
                     >
-                        Entrar
-                    </Button>
-                </Box>
+                        <Typography component="h1" variant="h5">
+                            Iniciar Sesión
+                        </Typography>
+                        {/* CONECTA el formulario con handleSubmit de useForm */}
+                        <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="email"
+                                label="Correo electrónico"
+                                name="email"
+                                autoComplete="email"
+                                autoFocus
+                                color="secondary"
 
-                {/* BOTON/ENLACE de registro */}
-                <Box sx={{ mt: 2 }}>
-                    <Typography variant="body2">
-                        ¿No tenes una cuenta?{' '}
-                        <Link component="button" variant="body2" onClick={handleRegisterClick}>
-                            Registrate aquí
-                        </Link>
-                    </Typography>
-                </Box>
+                                // Registra el INPUT con useForm
+                                {...register("email", { required: "El correo es obligatorio" })}
 
-            </Box>
+                                // Muestra errores 
+                                error={!!errors.email}
+                                helperText={errors.email?.message}
+                            />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Contraseña"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                                color="secondary"
 
-        </Container>
+                                // REGISTRA el INPUT con useForm
+                                {...register("password", { required: "La contraseña es obligatoria" })}
+
+                                // Muestra error
+                                error={!!errors.password}
+                                helperText={errors.password?.message}
+                            />
+                            {/* MENSAJE de ERROR de inicio de sesión */}
+                            {loginErrorMessage && (
+                                <Alert severity="error" sx={{ mt: 2 }} onClose={handleCloseLoginError}>
+                                    {loginErrorMessage}
+                                </Alert>
+                            )}
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                                color="secondary"
+                            >
+                                Entrar
+                            </Button>
+                        </Box>
+
+                        {/* BOTON/ENLACE de registro */}
+                        <Box sx={{ mt: 2 }}>
+                            <Typography variant="body2">
+                                ¿No tenes una cuenta?{' '}
+                                <Link component="button" variant="body2" onClick={handleRegisterClick}>
+                                    Registrate aquí
+                                </Link>
+                            </Typography>
+                        </Box>
+
+                        {/* Snackbar para el éxito del registro */}
+                        <SnackbarComponent
+                            open={isRegisterSuccess}
+                            message="¡Registro exitoso! Ahora puedes iniciar sesión."
+                            onClose={handleCloseRegisterSnackbar}
+                            severity="success"
+                        />
+                    </Box>
+                </Container>
+            </div> 
+        </div> 
     );
 };

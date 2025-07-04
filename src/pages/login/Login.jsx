@@ -34,7 +34,7 @@ export const Login = () => {
             navigate('/shop'); // Redirige a la Home si ya está autenticado
         }
     }, [isAuthenticated, navigate]);
-    console.log(isAuthenticated, "is authenticated");
+
 
     const onSubmit = (data) => {
         // data contendrá { email: "valor", password: "valor" }
@@ -72,10 +72,11 @@ export const Login = () => {
                     component="main"
                     maxWidth="xs"
                     className="login-form-container"
+                    sx={{margin:3}}
                 >
                     <Box
                         sx={{
-                            marginTop: 8,
+                            marginTop: 2,
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',

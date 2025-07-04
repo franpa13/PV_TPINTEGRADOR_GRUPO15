@@ -10,6 +10,7 @@ import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import "../login/Login.css";
 
 export const Register = () => {
     const dispatch = useDispatch(); 
@@ -46,7 +47,10 @@ export const Register = () => {
     };
 
     return (
-        <Container component="main" maxWidth="xs">
+        // 3. ENVOLVER EL CONTENEDOR CON LAS CLASES DE FONDO Y CENTRADO
+        <div className="login-background"> 
+            <div className="login-content-wrapper"> 
+        <Container component="main" maxWidth="xs" className="login-form-container">
             <Box
                 sx={{
                     marginTop: 8,
@@ -70,6 +74,7 @@ export const Register = () => {
                         {...register("email")} 
                         error={!!errors.email}
                         helperText={errors.email?.message}
+                        color="secondary"
                     />
                     <TextField
                         margin="normal"
@@ -83,6 +88,7 @@ export const Register = () => {
                         {...register("password")} 
                         error={!!errors.password}
                         helperText={errors.password?.message}
+                        color="secondary"
                     />
                     <TextField
                         margin="normal"
@@ -96,12 +102,20 @@ export const Register = () => {
                         {...register("password2")} 
                         error={!!errors.password2}
                         helperText={errors.password2?.message}
+                        color="secondary"
                     />
-                    <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} color='success'>
+                    <Button 
+                        type="submit" 
+                        fullWidth 
+                        variant="contained" 
+                        sx={{ mt: 3, mb: 2 }} 
+                        color='secondary'>
                         Guardar
                     </Button>
                 </Box>
             </Box>
         </Container>
+     </div> 
+ </div> 
     );
 }

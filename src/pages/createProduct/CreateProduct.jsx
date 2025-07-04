@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Button } from "@mui/material";
-import { SnackbarComponent } from "../../components/ui/snackbar/Snackbar.jsx";
+import { SnackbarComponent } from "../../components/ui/Snackbar.jsx";
 import { addProduct } from "../../store/productsSlice.js";
 import { Title } from "../../components/ui/Title.jsx";
 import { ArrowBack } from "@mui/icons-material";
 import FileUploadSharpIcon from "@mui/icons-material/FileUploadSharp";
-import CustomCard from "../../components/ui/Card/CustomCard.jsx";
 import FormsProduct from "../../components/forms/FormsProduct.jsx";
+import CustomCard from "../../components/Card/CustomCard.jsx";
 
 export const CreateProduct = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);

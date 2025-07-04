@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 export const Error = ({ message = "Ocurrió un error", onRetry }) => {
     return (

@@ -1,4 +1,4 @@
-import { Grid, Box } from "@mui/material"; // Se importa Box en vez de Typography
+import { Box } from "@mui/material"; // Se importa Box en vez de Typography
 import CardComponent from "../../components/Card/Card";
 import { Title } from "../../components/ui/Title";
 import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone"; //Nuevo icono de corazon

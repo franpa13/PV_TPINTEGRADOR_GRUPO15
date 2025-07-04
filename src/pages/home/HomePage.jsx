@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useSelector } from "react-redux";
-import CardComponent from "../../components/ui/Card/Card";
+import CardComponent from "../../components/Card/Card";
 import { Title } from "../../components/ui/Title";
 import Carrusel from "../../components/carrusel/Carrusel";
 import Icon from "../../components/ui/Icon";

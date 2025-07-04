@@ -1,190 +1,201 @@
 import {
-    AppBar,
-    Box,
-    Toolbar,
-    IconButton,
-    Typography,
-    Menu,
-    Container,
-    Button,
-    MenuItem,
-    useTheme,
-} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { useActiveRoute } from '../../hooks/useActiveRoute';
-import TooltipComponent from '../ui/Tooltip';
-import { logoutUser } from '../../store/auth';
-import { useDispatch } from 'react-redux';
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Button,
+  MenuItem,
+  useTheme,
+  alpha,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useActiveRoute } from "../../hooks/useActiveRoute";
+import TooltipComponent from "../ui/Tooltip";
+import { logoutUser } from "../../store/auth";
+import { useDispatch } from "react-redux";
+import icono from "../../assets/icono.jpg";
+
+const ACCENT = "#DF1074"; // rosa del logo
+const DARK_TXT = "#333333";
+const LIGHT_BG = "#FFE6F0";
 
 const pages = [
-    { label: 'Home', path: '/shop' },
-    { label: 'Favoritos', path: '/shop/favorites' },
-    { label: 'Nuevo producto', path: '/shop/create-product' },
+  { label: "Home", path: "/shop" },
+  { label: "Favoritos", path: "/shop/favorites" },
+  { label: "Nuevo producto", path: "/shop/create-product" },
 ];
 
 export const NavBar = () => {
-    const [anchorElNav, setAnchorElNav] = useState(null);
-    const navigate = useNavigate();
-    const isActive = useActiveRoute();
-    const dispatch = useDispatch();
-    const theme = useTheme();
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isActive = useActiveRoute();
+  const theme = useTheme();
 
-    const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
-    };
+  /* Handlers */
+  const handleOpenNavMenu = (e) => setAnchorElNav(e.currentTarget);
+  const handleCloseNavMenu = () => setAnchorElNav(null);
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    navigate("/auth/login", { replace: true });
+  };
 
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
+  return (
+    <AppBar
+      position="sticky"
+      elevation={3}
+      sx={{
+        bgcolor: LIGHT_BG,
+        color: DARK_TXT,
+        borderBottom: `3px solid ${ACCENT}`,
+      }}
+    >
+      <Container maxWidth="xl">
+        <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
+          {/* ——————— Logo & Burger (mobile) ——————— */}
+          <Box
+            sx={{ display: { xs: "flex", md: "none" }, alignItems: "center" }}
+          >
+            <IconButton onClick={handleOpenNavMenu}>
+              <MenuIcon />
+            </IconButton>
 
-    const handleLogout = () => {
+            {/* Logo mini */}
+            <Box
+              component="img"
+              src={icono}
+              alt="logo"
+              onClick={() => navigate("/shop")}
+              sx={{
+                width: 44,
+                height: 44,
+                ml: 1,
+                borderRadius: "50%",
+                cursor: "pointer",
+                transition: "transform .25s",
+                "&:hover": { transform: "scale(1.08)" },
+              }}
+            />
 
-        dispatch(logoutUser());
-        navigate('/auth/login', { replace: true });
-    }
+            {/* ———— Drawer‑like Menu (xs‑sm) ———— */}
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              keepMounted
+              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+              transformOrigin={{ vertical: "top", horizontal: "left" }}
+              sx={{
+                display: { xs: "block", md: "none" },
+                "& .MuiPaper-root": {
+                  mt: 1,
+                  px: 1,
+                  borderRadius: 2,
+                  boxShadow: theme.shadows[6],
+                },
+              }}
+            >
+              {pages.map(({ label, path }) => (
+                <MenuItem
+                  key={path}
+                  onClick={handleCloseNavMenu}
+                  component={Link}
+                  to={path}
+                  sx={{
+                    borderRadius: 1,
+                    "&:hover": { bgcolor: alpha(ACCENT, 0.1) },
+                  }}
+                >
+                  <Typography fontWeight={500}>{label}</Typography>
+                </MenuItem>
+              ))}
 
-    return (
-        <AppBar color="success" position="sticky" elevation={4}>
-            <Container maxWidth="xl">
-                <Toolbar disableGutters sx={{ justifyContent: 'space-between', paddingY: 1 }}>
-                    {/* Mobile Icon */}
-                    <Box sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center' }}>
-                        <IconButton onClick={handleOpenNavMenu} color="inherit">
-                            <MenuIcon />
-                        </IconButton>
+              <MenuItem onClick={handleLogout} sx={{ borderRadius: 1 }}>
+                <LogoutIcon sx={{ mr: 1 }} />
+                <Typography fontWeight={500}>Cerrar sesión</Typography>
+              </MenuItem>
+            </Menu>
+          </Box>
 
-                        <img
-                            onClick={() => navigate('/shop')}
-                            src="https://www.revistaeyn.com/binrepository/1084x750/43c0/1000d750/none/26086/VVMA/moda-ropausada-americana-2023_5809344_20231018143322.jpg"
-                            alt="CHANGO MAS"
-                            className="rounded-full cursor-pointer  absolute right-0 w-[46px] h-[46px] shadow-md hover:scale-105 transition"
-                        />
+          {/* ——————— Logo & Brand (md‑xl) ——————— */}
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <Box
+              component="img"
+              src={icono}
+              alt="logo"
+              onClick={() => navigate("/shop")}
+              sx={{
+                width: 64,
+                height: 64,
+                borderRadius: "50%",
+                cursor: "pointer",
+                display: { xs: "none", md: "block" },
+                transition: "transform .25s",
+                "&:hover": { transform: "scale(1.08)" },
+              }}
+            />
+            <Typography
+              variant="h6"
+              fontWeight="bold"
+              letterSpacing={1}
+              sx={{ display: { xs: "none", md: "block" } }}
+            >
+              FASHIONISTA
+            </Typography>
+          </Box>
 
+          {/* ——————— Links desktop ——————— */}
+          <Box sx={{ display: { xs: "none", md: "flex" }, flexGrow: 1, ml: 4 }}>
+            {pages.map(({ label, path }) => {
+              const active = isActive(path, true);
+              return (
+                <Button
+                  key={path}
+                  component={Link}
+                  to={path}
+                  size="large"
+                  disableElevation
+                  variant={active ? "contained" : "text"}
+                  sx={{
+                    mx: 1,
+                    borderRadius: "20px",
+                    textTransform: "none",
+                    fontWeight: 500,
+                    bgcolor: active ? ACCENT : "transparent",
+                    color: active ? "#fff" : DARK_TXT,
+                    "&:hover": {
+                      bgcolor: active
+                        ? theme.palette.primary.dark
+                        : alpha(ACCENT, 0.12),
+                    },
+                  }}
+                >
+                  {label}
+                </Button>
+              );
+            })}
+          </Box>
 
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                            transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: { xs: 'block', md: 'none' },
-                                '& .MuiPaper-root': {
-                                    borderRadius: 2,
-                                    boxShadow: 4,
-                                    minWidth: 180,
-                                },
-                            }}
-                        >
-                            {pages.map((page) => (
-                                <MenuItem
-                                    key={page.path}
-                                    onClick={handleCloseNavMenu}
-                                    component={Link}
-                                    to={page.path}
-                                    sx={{
-                                        gap: 1,
-                                        transition: 'all 0.3s',
-                                        '&:hover': {
-                                            bgcolor: theme.palette.success.light,
-                                            color: 'white',
-                                        },
-                                    }}
-                                >
-                                    <Typography textAlign="center" fontWeight={500}>
-                                        {page.label}
-                                    </Typography>
-                                </MenuItem>
-                            ))}
-                            <MenuItem
-                                onClick={handleLogout}
-                                component={Link}
-
-                                sx={{
-                                    gap: 1,
-                                    transition: 'all 0.3s',
-                                    '&:hover': {
-                                        bgcolor: theme.palette.success.light,
-                                        color: 'white',
-                                    },
-                                }}>
-
-                                <LogoutIcon sx={{ color: 'black', cursor: 'pointer' }} />
-                                <Typography textAlign="center" fontWeight={500}>
-                                    Cerrar sesión
-                                </Typography>
-
-                            </MenuItem>
-
-                        </Menu>
-
-                    </Box>
-
-                    {/* Logo */}
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                        <img
-                            onClick={() => navigate('/shop')}
-                            src="https://www.revistaeyn.com/binrepository/1084x750/43c0/1000d750/none/26086/VVMA/moda-ropausada-americana-2023_5809344_20231018143322.jpg"
-                            alt="CHANGO MAS"
-                            className="rounded-full cursor-pointer hidden md:block w-[70px] h-[70px] shadow-md hover:scale-105 transition"
-                        />
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="div"
-                            sx={{ display: { xs: 'none', md: 'block' }, fontWeight: 'bold', letterSpacing: 1 }}
-                        >
-                            MI TIENDA
-                        </Typography>
-                    </Box>
-
-                    {/* Desktop Links */}
-                    <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 1, ml: 3 }}>
-                        {pages.map((page) => (
-                            <Button
-                                key={page.path}
-                                component={Link}
-                                to={page.path}
-                                color={isActive(page.path, true) ? 'primary' : 'inherit'}
-                                variant={isActive(page.path, true) ? 'contained' : 'text'}
-                                sx={{
-                                    mx: 1,
-                                    borderRadius: '20px',
-                                    fontWeight: 500,
-                                    textTransform: 'none',
-                                    transition: 'all 0.3s',
-                                    '&:hover': {
-                                        bgcolor: isActive(page.path)
-                                            ? 'primary.dark'
-                                            : theme.palette.success.light,
-                                        color: 'white',
-                                    },
-                                }}
-                            >
-                                {page.label}
-                            </Button>
-                        ))}
-                    </Box>
-
-                    {/* Logout Icon (Desktop) */}
-                    <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
-                        <TooltipComponent onClick={handleLogout} text="Cerrar sesión">
-                            <IconButton sx={{ color: 'white', transition: '0.3s', '&:hover': { color: 'red' } }}>
-                                <LogoutIcon />
-                            </IconButton>
-                        </TooltipComponent>
-                    </Box>
-                </Toolbar>
-            </Container>
-        </AppBar>
-    );
+          {/* ——————— Logout (desktop) ——————— */}
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <TooltipComponent text="Cerrar sesión" onClick={handleLogout}>
+              <IconButton sx={{ "&:hover": { color: ACCENT } }}>
+                <LogoutIcon />
+              </IconButton>
+            </TooltipComponent>
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
 };
-
-
 
 // import AppBar from '@mui/material/AppBar';
 // import Box from '@mui/material/Box';
@@ -202,18 +213,13 @@ export const NavBar = () => {
 // import LogoutIcon from '@mui/icons-material/Logout';
 // import TooltipComponent from '../ui/Tooltip';
 
-
-
 // const pages = [{ label: 'Home', path: "/home" }, { label: 'favoritos', path: "/favorites" }, { label: 'Nuevo producto', path: "/create-product" }];
-
 
 // export const NavBar = () => {
 //     const [anchorElNav, setAnchorElNav] = useState(null);
 //     const navigate = useNavigate();
 //     // verificar si la ruta es activa o no
 //     const isActive = useActiveRoute();
-
-
 
 //     const handleOpenNavMenu = (event) => {
 //         setAnchorElNav(event.currentTarget);
@@ -222,8 +228,6 @@ export const NavBar = () => {
 //     const handleCloseNavMenu = () => {
 //         setAnchorElNav(null);
 //     };
-
-
 
 //     return (
 //         <AppBar color='success' position="sticky">

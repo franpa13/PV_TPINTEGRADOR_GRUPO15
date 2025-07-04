@@ -72,7 +72,6 @@ export const CreateProduct = () => {
         rating: { rate: "", count: "" },
       });
       navigate("/shop");
-
     } else {
       setOpenSnackbarError(true);
     }
@@ -87,7 +86,7 @@ export const CreateProduct = () => {
   return (
     <CustomCard>
       <Title
-        className="text-2xl xl:text-3xl text-center text-green-700 my-5"
+        className="text-2xl xl:text-3xl text-center text-pink-600  my-5"
         text="Agregar Producto"
       >
         <FileUploadSharpIcon fontSize="large" />
@@ -108,7 +107,6 @@ export const CreateProduct = () => {
         handleSubmit={handleSubmit}
         submitLabel="Crear Producto"
       ></FormsProduct>
-
 
       <SnackbarComponent
         open={openSnackbarError}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, resetLoginError, resetRegisterSuccess } from '../../store/auth';
-import { SnackbarComponent } from '../../components/ui/snackbar/Snackbar';
+
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form'; // IMPORTA useForm
 
@@ -24,7 +24,7 @@ export const Login = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
     // Obtener estados relevantes de Redux
-    const isRegisterSuccess = useSelector((state) => state.auth.registerSuccess);
+
     const loginErrorMessage = useSelector((state) => state.auth.loginError);
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
@@ -47,9 +47,7 @@ export const Login = () => {
 
     };
 
-    const handleCloseRegisterSnackbar = () => {
-        dispatch(resetRegisterSuccess());
-    };
+
 
     const handleCloseLoginError = () => {
         dispatch(resetLoginError());
@@ -150,13 +148,7 @@ export const Login = () => {
                             </Typography>
                         </Box>
 
-                        {/* Snackbar para el éxito del registro */}
-                        <SnackbarComponent
-                            open={isRegisterSuccess}
-                            message="¡Registro exitoso! Ahora puedes iniciar sesión."
-                            onClose={handleCloseRegisterSnackbar}
-                            severity="success"
-                        />
+              
                     </Box>
                 </Container>
             </div> 

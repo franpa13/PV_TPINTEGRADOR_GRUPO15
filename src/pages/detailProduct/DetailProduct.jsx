@@ -6,6 +6,7 @@ import { ImageMagnifier } from "./ImageMagnifier";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { removeProduct } from "../../store/productsSlice";
 import { Error } from "../../components/ui/Error";
+import { useState } from "react";
 
 export const DetailProduct = () => {
   const { id } = useParams();
@@ -15,14 +16,18 @@ export const DetailProduct = () => {
     state.products.products.find((p) => p.id === parseInt(id))
   );
 
-  if (!product) {
-    return <Error message="No se encontró el producto!" />;
-  }
 
-  const deleteProd = () => {
-    dispatch(removeProduct(product));
-    navigate("/shop");
-  };
+const [isDeleted, setIsDeleted] = useState(false);
+
+const deleteProd = () => {
+  dispatch(removeProduct(product));
+  setIsDeleted(true);
+  navigate("/shop");
+};
+
+if (!product && !isDeleted) {
+  return <Error message="No se encontró el producto!" />;
+}
 
   return (
     <Box
@@ -74,13 +79,15 @@ export const DetailProduct = () => {
           </Grid>
 
           <Grid container spacing={4} direction={{ xs: "column", md: "row" }}>
-            <Grid item xs={12} md={6}>
+            <Grid sx={{ width: "100%" }} item xs={12} md={6}>
               <Box
                 sx={{
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
                   height: 400,
+
+                  width: "100%",
                   overflow: "hidden",
                 }}
               >

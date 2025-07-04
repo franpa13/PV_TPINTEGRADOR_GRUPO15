@@ -43,7 +43,7 @@ export const authSlice = createSlice({
                 console.warn("Informacion Invalida.");
                 state.currentUser = null; // LIMPIA currentUser al fallar el inicio de sesión
                 state.isAuthenticated = false; // Establece isAuthenticated en false al fallar el inicio de sesión
-                state.loginError = "Informacion incorrecta. Verifica tu correo y contraseña.";
+                state.loginError = "Credenciales inválidas. Verifica tu correo y contraseña.";
             }
         },
         logoutUser: (state) => {

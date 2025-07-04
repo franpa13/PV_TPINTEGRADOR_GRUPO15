@@ -1,10 +1,8 @@
-import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { FaRegEdit } from "react-icons/fa";
-import TooltipComponent from '../Tooltip';
+import TooltipComponent from '../ui/Tooltip';
 import { toggleFavorite } from '../../../store/productsSlice';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 export const ActionsCard = ({ id, isFavorite }) => {

@@ -8,7 +8,7 @@ import { ProductAlert } from "../components/ui/ProductAlert";
 export const HomeLayout = () => {
   const { error, loading } = useGetProducts();
   return (
-    <div className="min-h-screen flex flex-col relative">
+    <div className="flex flex-col relative min-h-screen">
       <NavBar />
 
       {/* Spinner de carga*/}

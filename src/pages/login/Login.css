@@ -1,0 +1,44 @@
+
+.login-background {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  
+}
+
+.login-background::before {
+  content: '';
+  background-image: url('../../assets/fondo-logo.png'); /* Ruta de la IMAGEN de fondo */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.30; /* AFECTA al FONDO no mas */
+  
+ position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* COLOCA a la imagen ATRAS de TODO */
+}
+
+.login-content-wrapper {
+  position: relative; 
+  z-index: 0; /* Asegura que el CONTENIDO esté por ENCIMA del FONDO (-1) */
+  width: 100%;
+  height: 100%;
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+ 
+}
+
+.login-form-container {
+  background-color: #FFF0F6;/* Fondo semi-transparente para el formulario */
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  border: 2px solid #F06292;
+}
